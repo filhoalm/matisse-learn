@@ -2,7 +2,7 @@
 title: "Resources"
 subtitle: "Download live scripts, slides, and reference papers"
 date: today
-date-modified: 2026-09-14
+date-modified: 2026-09-28
 format:
   html:
     toc: true
@@ -19,7 +19,7 @@ format:
 ---
 
 ```{=html}
-<nav class="course-nav course-global-nav" aria-label="Course navigation"><a href="index.html">Home</a><a href="course-information.html">Course information</a><a href="getting-started.html">Getting started</a><a href="toolbox-guide.html">Toolbox guide</a><a href="examples.html">Examples</a><a href="resources.html" aria-current="page">Resources</a></nav><p class="course-back"><a href="index.html">← Back to course</a></p>
+<nav class="course-nav course-global-nav" aria-label="Course navigation"><a href="index.html">Home</a><a href="getting-started.html">MATLAB guide</a><a href="toolbox-guide.html">Toolbox guide</a><a href="examples.html">Examples</a><a href="resources.html" aria-current="page">Resources</a><a href="course-information.html">Short course</a></nav><p class="course-back"><a href="index.html">← Back to home</a></p>
 ```
 
 ## Downloads {#downloads}
@@ -39,7 +39,7 @@ Start with `MATISSE_toolbox.zip` and the Overview live script. Next, open The Le
 
 ## Related methods and publications {#related-methods-and-publications}
 
--   [Age-Period-Cohort Analysis Web Tool](https://dceg.cancer.gov/tools/analysis/apc) (NCI DCEG) — [description](https://aacrjournals.org/cebp/article/23/11/2296/14669/A-Web-Tool-for-Age-Period-Cohort-Analysis-of)
+-   [Age Period Cohort Analysis Web Tool](https://analysistools.cancer.gov/apc/) (NCI) — [about the tool](https://dceg.cancer.gov/tools/analysis/apc) · [description](https://aacrjournals.org/cebp/article/23/11/2296/14669/A-Web-Tool-for-Age-Period-Cohort-Analysis-of)
 -   [The new age-period-cohort model](https://journals.sagepub.com/doi/10.1177/0962280218801121)
 -   [Comparative age-period-cohort analysis](https://link.springer.com/article/10.1186/s12874-023-02039-8)
 -   [Smoothing methods for Lexis diagrams](https://journals.sagepub.com/doi/10.1177/09622802231192950)
@@ -57,12 +57,12 @@ Some familiarity helps. Start with the Overview live script to learn how the too
 The methods are described in Miranda Filho & Rosenberg, *Advances in statistical methods for cancer surveillance research: an age-period-cohort perspective* (Front Oncol, 2024). Download the paper from [Downloads](#downloads). For individual methods, such as SAGE and comparative APC analysis, open [Related methods and publications](#related-methods-and-publications).
 
 **How do I ask a question or get help?**
-A shared inbox for course and methods questions is being set up. Contact details will appear here when it is ready. For now, use the toolbox's built-in help. See [Getting help](toolbox-guide.html#getting-help) for the commands.
+Send us an email at [matisse.apc@gmail.com](mailto:matisse.apc@gmail.com). For quick answers about commands, use the toolbox's built-in help. See [Getting help](toolbox-guide.html#getting-help) for the commands.
 
 **Will the live sessions be recorded?**
 Yes. Recordings will be linked here when they are available.
 
 
 ```{=html}
-<footer class="course-page-footer"><p class="course-back"><a href="index.html">← Back to course</a></p></footer>
+<footer class="course-page-footer"><p class="course-back"><a href="index.html">← Back to home</a></p></footer>
 ```

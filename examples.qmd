@@ -1,8 +1,8 @@
 ---
 title: "Examples"
-subtitle: "Run the code and explore Lexis diagrams"
+subtitle: "Run the code, draw standard plots, and explore APC methods"
 date: today
-date-modified: 2026-09-14
+date-modified: 2026-09-28
 format:
   html:
     toc: true
@@ -19,18 +19,39 @@ format:
 ---
 
 ```{=html}
-<nav class="course-nav course-global-nav" aria-label="Course navigation"><a href="index.html">Home</a><a href="course-information.html">Course information</a><a href="getting-started.html">Getting started</a><a href="toolbox-guide.html">Toolbox guide</a><a href="examples.html" aria-current="page">Examples</a><a href="resources.html">Resources</a></nav><p class="course-back"><a href="index.html">← Back to course</a></p>
+<nav class="course-nav course-global-nav" aria-label="Course navigation"><a href="index.html">Home</a><a href="getting-started.html">MATLAB guide</a><a href="toolbox-guide.html">Toolbox guide</a><a href="examples.html" aria-current="page">Examples</a><a href="resources.html">Resources</a><a href="course-information.html">Short course</a></nav><p class="course-back"><a href="index.html">← Back to home</a></p>
 ```
 
 ## Examples
 
-**Video:** [Watch Visualizing a Lexis diagram on YouTube](https://www.youtube.com/watch?v=dzQgEBVj48o) (43 sec).
+Practice with real cancer surveillance data from the US Surveillance, Epidemiology, and End Results (SEER) program. Choose an example below. Each one has a short description. Live scripts (`.mlx`) hold the code, so you can run them in MATLAB Online. Live scripts marked "coming soon" are still being prepared.
 
-Practice with one of the 16 built-in example datasets from the US Surveillance, Epidemiology, and End Results (SEER) program. Load the data, draw a heat map with `pcolor`, and draw a surface with `surf`. Then adjust the graphics or compare several diagrams with `thumbnail`. Open the examples below and run one section at a time.
+```{=html}
+<nav class="examples-index" aria-label="Examples on this page">
+<div class="examples-group"><p class="examples-group-title">Data and Lexis diagrams</p><ul>
+<li><a href="#example-data">Example data</a><span>Load and prepare one of 16 SEER datasets.</span><span class="ex-mat"><a href="downloads/MATISSE_2_The_Lexis_Diagram.mlx">Live script ↗</a></span></li>
+<li><a href="#visualizing-a-lexis-diagram">Visualizing a Lexis diagram</a><span>Draw a heat map and a 3-D surface of rates.</span><span class="ex-mat"><a href="https://www.youtube.com/watch?v=dzQgEBVj48o">Video, 0:43 ↗</a> · <a href="downloads/MATISSE_2_The_Lexis_Diagram.mlx">Live script ↗</a></span></li>
+<li><a href="#comparing-several-lexis-diagrams-at-once">Comparing several Lexis diagrams</a><span>Compare groups side by side.</span><span class="ex-mat"><a href="downloads/MATISSE_2_The_Lexis_Diagram.mlx">Live script ↗</a></span></li>
+</ul></div>
+<div class="examples-group"><p class="examples-group-title">Standard plots</p><ul>
+<li><a href="#standard-plots">The four standard plots</a><span>See rates by age, period, and cohort.</span><span class="ex-mat ex-soon">Live script coming soon</span></li>
+</ul></div>
+<div class="examples-group"><p class="examples-group-title">APC model</p><ul>
+<li><a href="#estimable-functions">The six estimable functions</a><span>Summarize age, period, and cohort effects.</span><span class="ex-mat ex-soon">Live script coming soon</span></li>
+</ul></div>
+<div class="examples-group"><p class="examples-group-title">Advanced methods</p><ul>
+<li><a href="#sift">Smoothing with SIFT</a><span>Denoise a matrix of rates.</span><span class="ex-mat"><a href="https://journals.sagepub.com/doi/10.1177/09622802231192950">Paper ↗</a> · <span class="ex-soon">Live script coming soon</span></span></li>
+<li><a href="#sage">Semiparametric APC with SAGE</a><span>Fit the APC model to smoothed rates.</span><span class="ex-mat"><a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2819747">Paper ↗</a> · <span class="ex-soon">Live script coming soon</span></span></li>
+<li><a href="#comparative-apc">Comparative APC analysis</a><span>Test whether groups share the same patterns.</span><span class="ex-mat"><a href="https://link.springer.com/article/10.1186/s12874-023-02039-8">Paper ↗</a> · <span class="ex-soon">Live script coming soon</span></span></li>
+</ul></div>
+</nav>
+```
 
-[See the full code examples and figures →](examples.html)
+## Data and Lexis diagrams {#data-and-lexis-diagrams}
 
-## Example data
+These examples use the built-in SEER datasets. Start with **Example data**, then continue in order.
+
+### Example data
 
 MATISSE includes 16 example datasets from the US Surveillance, Epidemiology, and End Results (SEER) program. A **Lexis diagram** displays rates by age and calendar period. Start with example 16 to explore the workflow before using your own data. Run the code below to load the data and fill zero cells. Set `DELTA` to 2 or 5 to combine age and period intervals when the data are sparse.
 
@@ -52,7 +73,7 @@ R = fill(R0);   % add a small value to any zero cells
 disp(R)
 ```
 
-## Visualizing a Lexis diagram
+### Visualizing a Lexis diagram
 
 **Video:** [Watch Visualizing a Lexis diagram on YouTube](https://www.youtube.com/watch?v=dzQgEBVj48o) (43 sec).
 
@@ -66,7 +87,7 @@ figure('Position', [0 0 700 700])
 surf(R)
 ```
 
-![`melanoma F NHW`, 1975–2020 SEER rates per 100,000 — `pcolor` heat map](images/lexis_melanoma_pcolor.png){fig-alt="Heat map of melanoma incidence rates by age and period" width="42%" fig-align="center"}
+![`melanoma F NHW`, 1992–2020 SEER rates per 100,000 — `pcolor` heat map](images/lexis_melanoma_pcolor.png){fig-alt="Heat map of melanoma incidence rates by age and period" width="42%" fig-align="center"}
 
 Graphics settings can make patterns easier to see. Run the code below to compare the surface on the left with a heat map on the right. The heat map uses the `nepal` color scheme. Change one option at a time and inspect the result.
 
@@ -88,7 +109,7 @@ pcolor(R, pvp1)
 
 A **property-value pair** names a graphics setting and gives its value. The `go` options store these settings. Use `ego` to copy a plot method's default settings, then edit the copy. MATISSE includes a 54-color line palette called `clarinet`. It also includes the `africa` and `nepal` color schemes, alongside MATLAB's built-in choices.
 
-## Comparing several Lexis diagrams at once
+### Comparing several Lexis diagrams at once
 
 Placing diagrams side by side helps you compare patterns across groups. Use `thumbnail` or `vistagram` with objects of the same size. Run the example below to compare breast cancer rates by estrogen receptor (ER) status and race. ER+ means receptor-positive; ER− means receptor-negative. NHB and NHW mean non-Hispanic Black and non-Hispanic White. The code combines the data into 2-by-2 age and period blocks, then displays log rates.
 
@@ -106,7 +127,66 @@ thumbnail(t4)
 
 ![Thumbnail comparison of four Lexis diagrams: breast cancer log rates by ER status and race](images/breast_er_thumbnail.png){fig-alt="Four heat maps of log incidence rates side by side, comparing ER status and race"}
 
+## Standard plots {#standard-plots}
+
+The four standard plots show the same rates from four angles. Each plot uses a log scale. Each is a slice through the Lexis diagram, so the [Lexis diagram live script](downloads/MATISSE_2_The_Lexis_Diagram.mlx) shows how they connect.
+
+| Plot  | What it shows                | Command            |
+|-------|------------------------------|--------------------|
+| `rpa` | Rates versus period, by age  | `salsa(R, 'rpa')`  |
+| `rap` | Rates versus age, by period  | `salsa(R, 'rap')`  |
+| `rca` | Rates versus cohort, by age  | `salsa(R, 'rca')`  |
+| `rac` | Rates versus age, by cohort  | `salsa(R, 'rac')`  |
+
+Use `ftp(R)` to draw all four at once. The two cohort plots (`rca` and `rac`) need age groups and calendar periods of equal width, such as 5-year age groups with 5-year periods. If the widths differ, `ftp` draws the two plots that remain defined. For options, run `help rates/ftp` and `help rates/salsa`.
+
+**Live script:** coming soon.
+
+## Estimable functions {#estimable-functions}
+
+Fit the new APC model to a `rates` object with `apc`. The model provides **estimable functions** (EFs). These are summaries of age, period, and cohort effects that the data can determine. Run `plot(M)` on the fitted model `M` to draw six of them in one 2-by-3 panel:
+
+| Panel position | Estimable function              | `ef` code |
+|----------------|---------------------------------|-----------|
+| Row 1, column 1 | Fitted Temporal Trends (FTT)   | `'ftt'`   |
+| Row 1, column 2 | Fitted Cohort Pattern (FCP)    | `'fcp'`   |
+| Row 1, column 3 | Local Drifts (LD)              | `'ld'`    |
+| Row 2, column 1 | Longitudinal Age Curve (LAC)   | `'lac'`   |
+| Row 2, column 2 | Cross-Sectional Age Curve (CAC) | `'cac'`  |
+| Row 2, column 3 | Gradient Shifts (GS)           | `'gs'`    |
+
+Use `ef(M, 'Comp', 'lac')` to return one estimable function as a `matrix` object, which holds the values and their uncertainty. MATISSE provides all the outputs of the NCI web tool and more. [The new age-period-cohort model](https://journals.sagepub.com/doi/10.1177/0962280218801121) defines each function. For options, run `help apc/ef` and `help apc/plot`.
+
+**Live script:** coming soon.
+
+## Advanced methods {#advanced-methods}
+
+These methods build on the new APC model. Each has a short description and a method paper. Live scripts will be added as they become available.
+
+### Smoothing with SIFT {#sift}
+
+Rates are noisy when case counts are small. SIFT (singular-value adaptive kernel filtration) smooths a matrix of rates with a panel of kernel operators. It combines their results into denoised values with an optimal balance of bias and variance. Read [Smoothing methods for Lexis diagrams](https://journals.sagepub.com/doi/10.1177/09622802231192950) to learn the method.
+
+**Live script:** coming soon.
+
+### Semiparametric APC with SAGE {#sage}
+
+SAGE (semiparametric age-period-cohort analysis) works in two steps. First, it smooths the observed rates with SIFT. Then it fits the new APC model to the smoothed rates. SAGE estimable functions are smoother than those from the standard model, which helps most when cell counts are modest. Run `sage(R)` to start. Read [Semiparametric age-period-cohort analysis](https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2819747) to learn the method.
+
+**Live script:** coming soon.
+
+### Comparative APC analysis {#comparative-apc}
+
+Comparative APC analysis compares rates from several groups, such as strata defined by sex, race, or ER status, over the same Lexis diagram. The built-in breast cancer examples are a good place to try it.
+
+-   **EPIPHANY** explores the data. It finds the best-fitting way to split the groups into subsets with proportional rates and single groups that are not proportional. You can then group estimable functions as equal, parallel, or unequal.
+-   **CAPRICORN** tests hypotheses. It determines whether the rates are jointly proportional by age, period, or cohort. Proportional rates are easier to interpret and give more efficient estimates. A lack of proportionality shows that the groups differ significantly.
+
+Read [Comparative age-period-cohort analysis](https://link.springer.com/article/10.1186/s12874-023-02039-8) to learn the methods. For options, run `help epiphany/epiphany` and `help capricorn/capricorn`.
+
+**Live script:** coming soon.
+
 
 ```{=html}
-<footer class="course-page-footer"><p class="course-back"><a href="index.html">← Back to course</a></p></footer>
+<footer class="course-page-footer"><p class="course-back"><a href="index.html">← Back to home</a></p></footer>
 ```

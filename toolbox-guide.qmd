@@ -2,7 +2,7 @@
 title: "Toolbox guide"
 subtitle: "Understand objects, explore methods, and find help"
 date: today
-date-modified: 2026-09-14
+date-modified: 2026-09-28
 format:
   html:
     toc: true
@@ -19,7 +19,7 @@ format:
 ---
 
 ```{=html}
-<nav class="course-nav course-global-nav" aria-label="Course navigation"><a href="index.html">Home</a><a href="course-information.html">Course information</a><a href="getting-started.html">Getting started</a><a href="toolbox-guide.html" aria-current="page">Toolbox guide</a><a href="examples.html">Examples</a><a href="resources.html">Resources</a></nav><p class="course-back"><a href="index.html">← Back to course</a></p>
+<nav class="course-nav course-global-nav" aria-label="Course navigation"><a href="index.html">Home</a><a href="getting-started.html">MATLAB guide</a><a href="toolbox-guide.html" aria-current="page">Toolbox guide</a><a href="examples.html">Examples</a><a href="resources.html">Resources</a><a href="course-information.html">Short course</a></nav><p class="course-back"><a href="index.html">← Back to home</a></p>
 ```
 
 ## Overview
@@ -82,5 +82,5 @@ doc('rates')                 % open help in a standalone window
 
 
 ```{=html}
-<footer class="course-page-footer"><p class="course-back"><a href="index.html">← Back to course</a></p></footer>
+<footer class="course-page-footer"><p class="course-back"><a href="index.html">← Back to home</a></p></footer>
 ```

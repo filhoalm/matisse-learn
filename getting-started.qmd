@@ -1,8 +1,8 @@
 ---
-title: "Getting started"
+title: "MATLAB guide"
 subtitle: "Set up MATLAB Online and the MATISSE toolbox"
 date: today
-date-modified: 2026-09-14
+date-modified: 2026-09-28
 format:
   html:
     toc: true
@@ -19,7 +19,7 @@ format:
 ---
 
 ```{=html}
-<nav class="course-nav course-global-nav" aria-label="Course navigation"><a href="index.html">Home</a><a href="course-information.html">Course information</a><a href="getting-started.html" aria-current="page">Getting started</a><a href="toolbox-guide.html">Toolbox guide</a><a href="examples.html">Examples</a><a href="resources.html">Resources</a></nav><p class="course-back"><a href="index.html">← Back to course</a></p>
+<nav class="course-nav course-global-nav" aria-label="Course navigation"><a href="index.html">Home</a><a href="getting-started.html" aria-current="page">MATLAB guide</a><a href="toolbox-guide.html">Toolbox guide</a><a href="examples.html">Examples</a><a href="resources.html">Resources</a><a href="course-information.html">Short course</a></nav><p class="course-back"><a href="index.html">← Back to home</a></p>
 ```
 
 ## Getting started with MATLAB Online {#getting-started-with-matlab-online}
@@ -46,5 +46,5 @@ To work in a local copy of MATLAB, download and unzip the toolbox. Add the extra
 **You are unsure what a command does.** Open the [help commands](toolbox-guide.html#getting-help). Check the required inputs before running the command again.
 
 ```{=html}
-<footer class="course-page-footer"><p class="course-back"><a href="index.html">← Back to course</a></p></footer>
+<footer class="course-page-footer"><p class="course-back"><a href="index.html">← Back to home</a></p></footer>
 ```

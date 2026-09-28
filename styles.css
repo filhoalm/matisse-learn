@@ -352,3 +352,35 @@ img {
   #title-block-header .matisse-brand-header { grid-template-columns:1fr; }
   #title-block-header .matisse-header-art { width:100%; }
 }
+
+
+/* Learning path: resource groups, coming-soon cards, "why MATISSE" cards */
+.module-group { margin:0 0 1.15rem; }
+.module-resources + .module-group { margin-top:1.3rem; }
+.module-group-title { margin:0 0 .55rem; color:#52677c; font-size:.62rem; font-weight:700; letter-spacing:.11em; text-transform:uppercase; }
+.module-resources .resource-soon { display:block; padding:.85rem; border:1px dashed #b9c6d4; border-radius:6px; font-size:.8rem; font-weight:600; line-height:1.5; color:#667389; background:#f8fafc; }
+.module-resources .resource-soon span { display:block; color:#7a2e6e; font-size:.59rem; letter-spacing:.05em; margin-bottom:.45rem; }
+.module-resources.cols-4 { grid-template-columns:repeat(4,1fr); }
+.module-topics { margin:.7rem 0 0; font-size:.78rem; line-height:1.65; color:#48566a; }
+.module-why { display:grid; grid-template-columns:repeat(3,1fr); gap:.8rem; }
+.module-why > div { border:1px solid #e1e5ea; border-radius:6px; padding:.85rem; background:#f8fafc; }
+.module-why strong { display:block; font-size:.8rem; color:#0b2e4f; line-height:1.4; }
+.module-why p { margin:.4rem 0 0; font-size:.76rem; line-height:1.55; color:#48566a; }
+.module-why a { font-weight:600; }
+@media(max-width:700px) { .module-resources.cols-4, .module-why { grid-template-columns:1fr; } }
+
+
+/* Examples page: classified index */
+.examples-index { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin:1.1rem 0 2rem; }
+.examples-group { border:1px solid #dce3eb; border-radius:9px; padding:1rem 1.15rem; background:white; }
+.examples-group-title { margin:0 0 .7rem; color:#52677c; font-size:.62rem; font-weight:700; letter-spacing:.11em; text-transform:uppercase; }
+.examples-group ul { list-style:none; padding:0; margin:0; }
+.examples-group li { padding:.6rem 0; border-top:1px solid #edf0f4; font-size:.82rem; line-height:1.5; }
+.examples-group li:first-child { border-top:0; padding-top:0; }
+.examples-group li:last-child { padding-bottom:0; }
+.examples-group li > a { font-weight:650; }
+.examples-group li > span { display:block; color:#52677c; font-size:.76rem; }
+.examples-group li > .ex-mat { margin-top:.15rem; font-size:.72rem; }
+.examples-group .ex-soon { color:#7a2e6e; }
+.examples-group a:focus-visible { outline:3px solid #7a2e6e; outline-offset:2px; }
+@media(max-width:700px) { .examples-index { grid-template-columns:1fr; } }

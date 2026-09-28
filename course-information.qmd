@@ -1,8 +1,8 @@
 ---
-title: "Course information"
+title: "Short course"
 subtitle: "Who the course is for, live sessions, and the project team"
 date: today
-date-modified: 2026-09-14
+date-modified: 2026-09-28
 format:
   html:
     toc: true
@@ -19,14 +19,14 @@ format:
 ---
 
 ```{=html}
-<nav class="course-nav course-global-nav" aria-label="Course navigation"><a href="index.html">Home</a><a href="course-information.html" aria-current="page">Course information</a><a href="getting-started.html">Getting started</a><a href="toolbox-guide.html">Toolbox guide</a><a href="examples.html">Examples</a><a href="resources.html">Resources</a></nav><p class="course-back"><a href="index.html">← Back to course</a></p>
+<nav class="course-nav course-global-nav" aria-label="Course navigation"><a href="index.html">Home</a><a href="getting-started.html">MATLAB guide</a><a href="toolbox-guide.html">Toolbox guide</a><a href="examples.html">Examples</a><a href="resources.html">Resources</a><a href="course-information.html" aria-current="page">Short course</a></nav><p class="course-back"><a href="index.html">← Back to home</a></p>
 ```
 
 ::: callout-note
 This course is a **working draft**. Check back for new guides and recordings.
 :::
 
-## The MATISSE course
+## The MATISSE short course
 
 **Video:** [Watch the MATISSE course tour on YouTube](https://www.youtube.com/watch?v=sWqLcsujtlQ) (4 min 23 sec).
 
@@ -44,6 +44,13 @@ Time is set aside for Q&A at the end of each session.
 
 This course is for epidemiologists, cancer registry researchers, and biostatisticians. Start with [Getting started with MATLAB Online](getting-started.html#getting-started-with-matlab-online). Then open the Overview live script in [Downloads](resources.html#downloads). Use the [FAQ](resources.html#faq) for common questions.
 
+## What you'll learn
+
+-   Set up MATISSE in MATLAB Online.
+-   Explore rates by age and calendar period.
+-   Draw and compare Lexis diagrams.
+-   Find APC methods and supporting resources.
+
 ## Project team
 
 ::: team-grid
@@ -59,5 +66,5 @@ Philip S. Rosenberg, PhD, developed the MATISSE toolbox and its code. The toolbo
 
 
 ```{=html}
-<footer class="course-page-footer"><p class="course-back"><a href="index.html">← Back to course</a></p></footer>
+<footer class="course-page-footer"><p class="course-back"><a href="index.html">← Back to home</a></p></footer>
 ```
