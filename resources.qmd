@@ -34,7 +34,7 @@ Start with `MATISSE_toolbox.zip` and the Overview live script. Next, open The Le
 | [Statistical_Methods_in_CSR.pptx](downloads/Statistical_Methods_in_CSR.pptx)                         | Course slides: statistical methods in cancer surveillance research                                                                                | 1.0 MB |
 | [The_Lexis_Diagram.pptx](downloads/The_Lexis_Diagram.pptx)                                           | Course slides: the Lexis diagram                                                                                                                  | 3.1 MB |
 | [SEER_CI5plus_to_APC_WebTool.pptx](downloads/SEER_CI5plus_to_APC_WebTool.pptx)                       | Course slides: from SEER/CI5+ data to the APC web tool                                                                                            | 1.8 MB |
-| [Miranda-Filho_Rosenberg_2024_FrontOncol.pdf](downloads/Miranda-Filho_Rosenberg_2024_FrontOncol.pdf) | Miranda Filho & Rosenberg, *Advances in statistical methods for cancer surveillance research: an age-period-cohort perspective*, Front Oncol 2024 | 4.4 MB |
+| [Filho_Rosenberg_2024_FrontOncol.pdf](downloads/Filho_Rosenberg_2024_FrontOncol.pdf) | Filho & Rosenberg, *Advances in statistical methods for cancer surveillance research: an age-period-cohort perspective*, Front Oncol 2024 | 4.4 MB |
 | [Rosenberg_2023_BMCMedResMethodol.pdf](downloads/Rosenberg_2023_BMCMedResMethodol.pdf)               | Comparative age-period-cohort analysis reference (BMC Med Res Methodol 2023)                                                                      | 6.2 MB |
 
 ## Related methods and publications {#related-methods-and-publications}
@@ -54,7 +54,7 @@ You can use MATLAB Online in your browser. Sign in with a MathWorks account and 
 Some familiarity helps. Start with the Overview live script to learn how the toolbox works. Run one section at a time and inspect the result. Use [Getting help](toolbox-guide.html#getting-help) when a command is unfamiliar.
 
 **Is MATISSE peer reviewed / published?**
-The methods are described in Miranda Filho & Rosenberg, *Advances in statistical methods for cancer surveillance research: an age-period-cohort perspective* (Front Oncol, 2024). Download the paper from [Downloads](#downloads). For individual methods, such as SAGE and comparative APC analysis, open [Related methods and publications](#related-methods-and-publications).
+The methods are described in Filho & Rosenberg, *Advances in statistical methods for cancer surveillance research: an age-period-cohort perspective* (Front Oncol, 2024). Download the paper from [Downloads](#downloads). For individual methods, such as SAGE and comparative APC analysis, open [Related methods and publications](#related-methods-and-publications).
 
 **How do I ask a question or get help?**
 Send us an email at [matisse.apc@gmail.com](mailto:matisse.apc@gmail.com). For quick answers about commands, use the toolbox's built-in help. See [Getting help](toolbox-guide.html#getting-help) for the commands.

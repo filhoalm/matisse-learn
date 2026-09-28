@@ -28,7 +28,7 @@ This course is a **working draft**. Check back for new guides and recordings.
 
 ## The MATISSE short course
 
-**Video:** [Watch the MATISSE course tour on YouTube](https://www.youtube.com/watch?v=sWqLcsujtlQ) (4 min 23 sec).
+**Video:** [Watch the MATISSE course tour on YouTube](https://www.youtube.com/watch?v=CLSP755kp4I) (2 min 8 sec).
 
 Learn to prepare data, explore cancer rates, and use **age-period-cohort (APC) methods**. These methods describe patterns by age, calendar period, and birth cohort. A birth cohort is a group of people born in the same year or years.
 
@@ -62,7 +62,7 @@ This course is for epidemiologists, cancer registry researchers, and biostatisti
 -   **Yasmmin Martins**
 :::
 
-Philip S. Rosenberg, PhD, developed the MATISSE toolbox and its code. The toolbox implements methods developed with the cancer surveillance research community. These include the APC methods described with Adalberto Miranda Filho in Front Oncol 2024. The team listed above develops the course.
+Philip S. Rosenberg, PhD, developed the MATISSE toolbox and its code. The toolbox implements methods developed with the cancer surveillance research community. These include the APC methods described in Filho & Rosenberg, Front Oncol 2024. The team listed above develops the course.
 
 
 ```{=html}
