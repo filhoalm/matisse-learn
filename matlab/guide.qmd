@@ -1,0 +1,27 @@
+---
+title: "MATLAB guide"
+subtitle: "Set up MATLAB Online and the MATISSE toolbox"
+---
+## Getting started with MATLAB Online {#getting-started-with-matlab-online}
+
+[MATLAB Online](https://www.mathworks.com/products/matlab-online.html) runs in your browser. Use it to work through the course without installing MATLAB on your computer. Sign in with a MathWorks account and check the current access terms.
+
+1.  Create a [MathWorks account](https://www.mathworks.com/mwaccount/register), or sign in if you already have one.
+2.  The badge below copies the course repository into MATLAB Drive, your online file storage. It also opens the Overview live script. Select **Open in MATLAB Online** to begin.
+
+    <a href="https://matlab.mathworks.com/open/github/v1?repo=filhoalm/matisse-learn&file=downloads/MATISSE_1_Overview.mlx"><img src="../images/open-in-matlab-online.svg" alt="Open in MATLAB Online" width="136" height="20"></a>
+
+3.  MATLAB needs to find the toolbox before the live scripts can run. Unzip `MATISSE_toolbox.zip` inside MATLAB Drive. Right-click the extracted folder, then choose **Add to Path → Selected Folders and Subfolders**.
+
+To work in a local copy of MATLAB, download and unzip the toolbox. Add the extracted folder and its subfolders to the MATLAB path. Then open the live scripts.
+
+## Troubleshooting {#troubleshooting}
+
+**MATLAB cannot find a MATISSE function.** Check that you have unzipped the toolbox. Right-click the extracted folder and choose **Add to Path → Selected Folders and Subfolders**. Then run the command again.
+
+**A live script does not open.** Open the file ending in `.mlx` from inside MATLAB or MATLAB Online. A live script needs MATLAB to run its code.
+
+**An example refers to an unknown variable.** Run the earlier sections of the live script in order. For the Lexis diagram examples, run Example data first to create `R`.
+
+**You are unsure what a command does.** Open the [help commands](toolbox.html#getting-help). Check the required inputs before running the command again.
+

@@ -1,92 +1,166 @@
 ---
-title: "MATISSE"
-subtitle: "a MATLAB Toolbox for vItal rateS Surveillance"
-date: today
-date-modified: 2026-09-28
-format:
-  html:
-    toc: false
-    toc-depth: 3
-    theme: cosmo
-    css: styles.css
-    include-after-body: link-targets.html
-    title-block-banner: "#0B2E4F"
-    title-block-banner-color: "#FFFFFF"
-    fig-align: center
-    code-tools: false
-    smooth-scroll: true
-    embed-resources: true
+title: "matisseR Learn"
+toc: false
+title-block-style: none
+title-block-banner: false
+page-layout: full
 ---
 
-```{=html}
-<nav class="course-nav course-global-nav" aria-label="Course navigation"><a href="index.html" aria-current="page">Home</a><a href="getting-started.html">MATLAB guide</a><a href="toolbox-guide.html">Toolbox guide</a><a href="examples.html">Examples</a><a href="resources.html">Resources</a><a href="course-information.html">Short course</a></nav><div class="course-home">
-
-<section class="course-intro" aria-labelledby="course-intro-title">
-<div><p class="course-eyebrow">A MATLAB TOOLBOX FOR VITAL RATES SURVEILLANCE</p><h2 id="course-intro-title">Explore cancer rates.<br>Model age, period, and cohort.</h2><p>MATISSE is an advanced age-period-cohort (APC) modeling toolbox for vital rates surveillance. It provides all the outputs of the NCI web tool and adds smoothing, semiparametric, and comparative methods.</p><div class="course-actions"><a class="course-button" href="#course-modules">Start learning <span aria-hidden="true">→</span></a><a class="course-secondary" href="course-information.html">About the short course →</a></div><p class="course-audience">For epidemiologists, cancer registry researchers, and biostatisticians.</p></div>
-
-<a class="course-video-card" href="https://www.youtube.com/watch?v=CLSP755kp4I" target="_blank" rel="noopener" aria-label="Watch Welcome to MATISSE on YouTube, 2 minutes 8 seconds, opens in a new tab">
-<div class="course-video-preview"><img src="https://i.ytimg.com/vi/CLSP755kp4I/hqdefault.jpg" alt="" loading="lazy"><span class="course-video-play" aria-hidden="true">▶</span><span class="course-video-duration">2:08</span></div>
-<div class="course-video-caption"><strong>Welcome to MATISSE</strong><span>Watch the MATISSE tour on YouTube ↗</span></div>
-</a></section>
-<section class="course-outcomes" aria-labelledby="course-outcomes-title"><h2 id="course-outcomes-title">What MATISSE can do</h2><ul><li>Fit the new APC model and read its six estimable functions.</li><li>Draw standard plots and Lexis diagrams of your rates.</li><li>Smooth noisy rates with SIFT and fit SAGE models.</li><li>Compare APC results across groups.</li></ul></section>
-<section id="course-modules" class="course-modules" aria-labelledby="course-modules-title">
-<div class="course-section-heading"><div><p class="course-eyebrow">START HERE</p><h2 id="course-modules-title">Your learning path</h2></div><p>Watch → Read → Run the code</p></div>
-<p>Work through the four steps in order, or jump to the one you need. Open a step to find its videos, slides, and practice task. Resource links open in a new tab.</p>
-
-<details class="course-module" open><summary><span class="module-number">01</span><span class="module-heading"><strong>Getting started with APC modeling</strong><span>Learn the basics of age-period-cohort modeling.</span></span><span class="module-toggle" aria-hidden="true">+</span></summary><div class="module-body">
-<div class="module-group"><p class="module-group-title">Learn the basics</p>
-<div class="module-resources"><div class="resource-soon"><span>WATCH · COMING SOON</span>What APC modeling is for, and why epidemiologists use it</div><a href="downloads/Statistical_Methods_in_CSR.pptx"><span>READ · SLIDES</span>Statistical methods in cancer surveillance ↗</a><a href="downloads/Filho_Rosenberg_2024_FrontOncol.pdf"><span>READ · METHODS PAPER</span>Advances in cancer surveillance methods ↗</a></div></div>
-<div class="module-group"><p class="module-group-title">Where to start</p>
-<div class="module-resources"><a href="downloads/SEER_CI5plus_to_APC_WebTool.pptx"><span>READ · SLIDES</span>Extract SEER and CI5 Plus data ↗</a><a href="https://analysistools.cancer.gov/apc/"><span>RUN · NCI WEB TOOL</span>Run APC modeling with the NCI web tool ↗</a></div></div>
-<div class="module-practice"><strong>Where to start: prepare your data</strong><p>The NCI web tool needs an input matrix of case counts and population by age group and calendar period. Age and period intervals must be equal in width, so 5-year age groups need 5-year periods. No count or population cell can be zero. The slides above show how to build this matrix from SEER*Stat (US data) or from the CI5 Plus database. Then run your analysis in the web tool.</p><a href="https://analysistools.cancer.gov/apc/">analysistools.cancer.gov/apc ↗</a></div></div></details>
-
-<details class="course-module"><summary><span class="module-number">02</span><span class="module-heading"><strong>What is MATISSE?</strong><span>MATISSE is an advanced APC modeling toolbox for vital rates surveillance.</span></span><span class="module-toggle" aria-hidden="true">+</span></summary><div class="module-body">
-<div class="module-resources"><a href="https://www.youtube.com/watch?v=CLSP755kp4I"><span>WATCH · 2:08</span>MATISSE tour ↗</a><a href="course-information.html"><span>LIVE COURSE</span>Short course: format and schedule →</a></div>
-<div class="module-group"><p class="module-group-title">Why MATISSE?</p>
-<div class="module-why">
-<div><strong>Want higher-resolution results?</strong><p>MATISSE can interpolate 5-year age groups to 1-year age groups. Run <code>help rates/i5</code> to see how.</p></div>
-<div><strong>Want to smooth the data?</strong><p>SIFT smooths a matrix of rates. SAGE then fits the APC model to the smoothed rates. <a href="examples.html#advanced-methods">See the examples →</a></p></div>
-<div><strong>Want to compare modeled results?</strong><p>Comparative APC methods test whether rates from several groups share the same patterns. <a href="examples.html#comparative-apc">See the example →</a></p></div>
-</div></div>
-<div class="module-practice"><strong>Join the short course</strong><p>Live sessions are planned for late October 2026 (dates to be confirmed). Read about the format, the schedule, and the team.</p><a href="course-information.html">Short course details →</a></div></div></details>
-
-<details class="course-module"><summary><span class="module-number">03</span><span class="module-heading"><strong>How to use MATISSE?</strong><span>Getting started with the toolbox</span></span><span class="module-toggle" aria-hidden="true">+</span></summary><div class="module-body">
-<div class="module-group"><p class="module-group-title">Set up</p>
-<div class="module-resources"><a href="getting-started.html#getting-started-with-matlab-online"><span>READ · MATLAB GUIDE</span>Set up MATLAB Online →</a><a href="downloads/MATISSE_toolbox.zip"><span>DOWNLOAD</span>MATISSE toolbox ↗</a><a href="https://matlab.mathworks.com/open/github/v1?repo=filhoalm/MATISSE&amp;file=downloads/MATISSE_1_Overview.mlx"><span>OPEN</span>Overview live script in MATLAB Online ↗</a></div></div>
-<div class="module-group"><p class="module-group-title">Meet the toolbox</p>
-<div class="module-resources"><a href="https://www.youtube.com/watch?v=6frwitiOJ_Y"><span>WATCH · 0:22</span>System map guide ↗</a><a href="downloads/Statistical_Methods_in_CSR.pptx"><span>READ · SLIDES</span>Statistical methods in cancer surveillance ↗</a><a href="downloads/MATISSE_1_Overview.mlx"><span>RUN · LIVE SCRIPT</span>MATISSE 1 Overview ↗</a></div></div>
-<div class="module-group"><p class="module-group-title">Explore Lexis diagrams</p>
-<div class="module-resources"><a href="https://www.youtube.com/watch?v=dzQgEBVj48o"><span>WATCH · 0:43</span>Visualizing a Lexis diagram ↗</a><a href="downloads/The_Lexis_Diagram.pptx"><span>READ · SLIDES</span>The Lexis Diagram ↗</a><a href="downloads/MATISSE_2_The_Lexis_Diagram.mlx"><span>RUN · LIVE SCRIPT</span>MATISSE 2 The Lexis Diagram ↗</a></div></div>
-<div class="module-group"><p class="module-group-title">Examples and resources</p>
-<div class="module-resources"><a href="examples.html"><span>EXAMPLES</span>Worked examples with live scripts →</a><a href="resources.html"><span>RESOURCES</span>Downloads, papers, and FAQ →</a></div>
-<p class="module-topics">The examples cover the <a href="examples.html#standard-plots">4 standard plots</a>, <a href="examples.html#visualizing-a-lexis-diagram">Lexis diagrams</a>, and the <a href="examples.html#estimable-functions">6 estimable functions</a>. Advanced methods have their own <a href="examples.html#advanced-methods">short examples</a>.</p></div>
-<div class="module-practice"><strong>Try it in MATLAB</strong><p>Open MATLAB Online, unzip the toolbox, and add its folder and subfolders to the MATLAB path. Run the Overview live script one section at a time. Open the system map with <code>matisse('map')</code>, then load the example data and draw a heat map with <code>pcolor</code>.</p><a href="toolbox-guide.html#system-map">Read about the system map →</a></div></div></details>
-
-<details class="course-module"><summary><span class="module-number">04</span><span class="module-heading"><strong>Advanced theory and analysis</strong><span>Uncover the theory of MATISSE and perform advanced analyses such as SIFT, SAGE, and comparative APC.</span></span><span class="module-toggle" aria-hidden="true">+</span></summary><div class="module-body">
-<div class="module-group"><p class="module-group-title">Theory and videos</p>
-<div class="module-resources"><div class="resource-soon"><span>READ · SLIDES · COMING SOON</span>Theory and statistical formulas</div><a href="https://www.youtube.com/@filhoam"><span>WATCH · YOUTUBE CHANNEL</span>MATISSE on YouTube: on-demand lectures ↗</a></div></div>
-<div class="module-group"><p class="module-group-title">Method papers</p>
-<div class="module-resources cols-4"><a href="https://journals.sagepub.com/doi/10.1177/0962280218801121"><span>APC MODEL</span>The new age-period-cohort model ↗</a><a href="https://journals.sagepub.com/doi/10.1177/09622802231192950"><span>SIFT</span>Smoothing methods for Lexis diagrams ↗</a><a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2819747"><span>SAGE</span>Semiparametric APC analysis ↗</a><a href="https://link.springer.com/article/10.1186/s12874-023-02039-8"><span>COMPARATIVE APC</span>Comparative APC analysis ↗</a></div></div>
-<div class="module-practice"><strong>Try an advanced method</strong><p>Choose SIFT to smooth noisy rates, SAGE to fit the APC model to smoothed rates, or comparative APC to compare groups. Read the short description, then open the method paper.</p><a href="examples.html#advanced-methods">See the advanced examples →</a></div></div></details>
-</section>
-<div class="course-resource-strip"><div><strong>Have a question?</strong><p>Send us an email at <a href="mailto:matisse.apc@gmail.com">matisse.apc@gmail.com</a></p></div><a class="course-button" href="mailto:matisse.apc@gmail.com">Email us <span aria-hidden="true">→</span></a></div>
+::: {.hero}
+<div>
+<p class="eyebrow">COURSE · AGE-PERIOD-COHORT ANALYSIS IN R</p>
+<h1>Learn age-period-cohort analysis with matisseR</h1>
+<p class="lede">A hands-on course on matisseR, an R toolbox for disease surveillance. Fit the New APC model, compare populations, follow social generations, and read figures from two real research projects. All in R, step by step.</p>
+<p class="status">Course in development: Modules 0 to 6 are ready to read and run. More video lessons will follow.</p>
+<div class="cta">
+<a class="btn-course" href="modules/m0-welcome.html">Start Module 0 <span aria-hidden="true">→</span></a>
+<a class="btn-course alt" href="#syllabus">See the syllabus</a>
 </div>
-```
+<p style="font-size:.78rem;color:#667389;margin:0">For epidemiologists, surveillance and registry researchers, and biostatisticians. Free, self-paced.</p>
+</div>
+<a class="course-video-card" href="https://www.youtube.com/watch?v=CLSP755kp4I" target="_blank" rel="noopener" aria-label="Watch Welcome to MATISSE on YouTube, 2 minutes 8 seconds, opens in a new tab"><span class="course-video-preview"><img src="https://i.ytimg.com/vi/CLSP755kp4I/hqdefault.jpg" alt="" loading="lazy"><span class="course-video-play" aria-hidden="true">▶</span><span class="course-video-duration">2:08</span></span><span class="course-video-caption"><strong>Welcome to MATISSE</strong><span>Watch the MATISSE tour on YouTube ↗</span></span></a>
+:::
 
+::: {.facts}
+<div><span>Level</span><b>Beginner to advanced</b></div>
+<div><span>Time</span><b>About 11 hours, self-paced</b></div>
+<div><span>Format</span><b>Reading, code labs, case studies</b></div>
+<div><span>Prerequisites</span><b>Basic R and rates</b></div>
+<div><span>Software</span><b>R 4.1+ and matisseR (free)</b></div>
+:::
 
-```{=html}
-<div class="home-extras"><section id="project-team" class="level2">
-<h2 class="anchored" data-anchor-id="project-team">Team</h2>
-<div class="team-grid">
-<ul>
-<li><strong>Philip S. Rosenberg</strong></li>
-<li><strong>Hyuna Sung</strong></li>
-<li><strong>Kieran Kelly</strong></li>
-<li><strong>Chenxi Jiang</strong></li>
-<li><strong>Adalberto M. Filho</strong></li>
-<li><strong>Yasmmin Martins</strong></li>
+## What you will learn
+
+<ul class="outcomes">
+<li>Organize cases and person-years into Lexis diagrams and <code>rates</code> objects.</li>
+<li>Fit the New APC model and read its estimable functions and net drift.</li>
+<li>Test whether two or more groups share the same age, period and cohort patterns (CAPRICORN).</li>
+<li>Compare social generations with their proxy parents and pool results across populations.</li>
+<li>Estimate the fitted cohort share of a cause among all deaths or cases.</li>
+<li>Structure an analysis so that others can rerun and check it.</li>
 </ul>
+
+<ul class="skills" aria-label="Skills you will gain">
+<li>Age-period-cohort analysis</li><li>Lexis diagrams</li><li>Rate ratios</li><li>Comparative analysis</li><li>Social generations</li><li>Disease surveillance</li><li>Reproducible R workflows</li>
+</ul>
+
+## Syllabus {#syllabus}
+
+Seven modules, each with readings, hands-on code, a case-study figure to read, and a short self-check. Open a module to see its lessons.
+
+<div class="progress-line" aria-live="polite"><span class="pt">0 of 7 modules complete (saved in this browser)</span><span class="bar"><i></i></span></div>
+
+<div class="syllabus">
+
+<details class="mod" data-module="m0" open><summary><span class="num">0</span><span class="mt"><strong>Welcome and setup</strong><span>Install R and matisseR, and check that everything runs.</span></span><span class="mm">4 lessons · ~30 min</span><span class="tog" aria-hidden="true">+</span></summary><div class="body">
+<ul class="lessons">
+<li><span class="lt video">Video</span><span><a href="https://www.youtube.com/watch?v=CLSP755kp4I" target="_blank" rel="noopener">Welcome to MATISSE: course tour</a></span><span class="lm">2 min</span></li>
+<li><span class="lt read">Reading</span><span>Set up R and matisseR</span><span class="lm">10 min</span></li>
+<li><span class="lt lab">Lab</span><span>Check your setup</span><span class="lm">10 min</span></li>
+<li><span class="lt quiz">Self-check</span><span>2 questions</span><span class="lm">3 min</span></li>
+</ul>
+<a class="go" href="modules/m0-welcome.html">Open Module 0 →</a></div></details>
+
+<details class="mod" data-module="m1"><summary><span class="num">1</span><span class="mt"><strong>Lexis diagrams and rates objects</strong><span>Organize cases and person-years by age, period and cohort.</span></span><span class="mm">6 lessons · ~1.5 h</span><span class="tog" aria-hidden="true">+</span></summary><div class="body">
+<ul class="lessons">
+<li><span class="lt video">Video</span><span><a href="https://www.youtube.com/watch?v=dzQgEBVj48o" target="_blank" rel="noopener">Visualizing a Lexis diagram</a></span><span class="lm">1 min</span></li>
+<li><span class="lt read">Reading</span><span>The Lexis diagram</span><span class="lm">15 min</span></li>
+<li><span class="lt lab">Lab</span><span>Rates objects</span><span class="lm">20 min</span></li>
+<li><span class="lt lab">Lab</span><span>Prepare rates for modelling: chunk, fill, interpolate</span><span class="lm">25 min</span></li>
+<li><span class="lt lab">Lab</span><span>Bring your own data</span><span class="lm">25 min</span></li>
+<li><span class="lt quiz">Self-check</span><span>3 questions</span><span class="lm">5 min</span></li>
+</ul>
+<a class="go" href="modules/m1-lexis-rates.html">Open Module 1 →</a></div></details>
+
+<details class="mod" data-module="m2"><summary><span class="num">2</span><span class="mt"><strong>The New APC model</strong><span>Fit the model and read its estimable functions.</span></span><span class="mm">5 lessons · ~2 h</span><span class="tog" aria-hidden="true">+</span></summary><div class="body">
+<ul class="lessons">
+<li><span class="lt read">Reading</span><span>Why APC is hard: identification and net drift</span><span class="lm">15 min</span></li>
+<li><span class="lt lab">Lab</span><span>Fit the model</span><span class="lm">25 min</span></li>
+<li><span class="lt lab">Lab</span><span>Estimable functions: LAC, CAC, FTT, FCP, local drifts</span><span class="lm">40 min</span></li>
+<li><span class="lt case">Case study</span><span>Read a real APC figure</span><span class="lm">20 min</span></li>
+<li><span class="lt quiz">Self-check</span><span>3 questions</span><span class="lm">5 min</span></li>
+</ul>
+<a class="go" href="modules/m2-new-apc-model.html">Open Module 2 →</a></div></details>
+
+<details class="mod" data-module="m3"><summary><span class="num">3</span><span class="mt"><strong>Comparing populations with CAPRICORN</strong><span>Test whether groups share the same patterns.</span></span><span class="mm">5 lessons · ~2 h</span><span class="tog" aria-hidden="true">+</span></summary><div class="body">
+<ul class="lessons">
+<li><span class="lt read">Reading</span><span>What "proportional" means</span><span class="lm">20 min</span></li>
+<li><span class="lt lab">Lab</span><span>Fit and test the five models</span><span class="lm">35 min</span></li>
+<li><span class="lt lab">Lab</span><span>Compare estimable functions and rate ratios</span><span class="lm">25 min</span></li>
+<li><span class="lt case">Case study</span><span>Read the anatomy of CAPRICORN</span><span class="lm">20 min</span></li>
+<li><span class="lt quiz">Self-check</span><span>3 questions</span><span class="lm">5 min</span></li>
+</ul>
+<a class="go" href="modules/m3-capricorn.html">Open Module 3 →</a></div></details>
+
+<details class="mod" data-module="m4"><summary><span class="num">4</span><span class="mt"><strong>Social generations and birth cohort</strong><span>Compare generations, pool across populations, track a cause's share.</span></span><span class="mm">7 lessons · ~2 h</span><span class="tog" aria-hidden="true">+</span></summary><div class="body">
+<ul class="lessons">
+<li><span class="lt read">Reading</span><span>Social generations and proxy parents</span><span class="lm">15 min</span></li>
+<li><span class="lt lab">Lab</span><span>Compare generations</span><span class="lm">30 min</span></li>
+<li><span class="lt lab">Lab</span><span>Early- and late-onset local drifts</span><span class="lm">10 min</span></li>
+<li><span class="lt lab">Lab</span><span>Pool rate ratios across populations</span><span class="lm">20 min</span></li>
+<li><span class="lt lab">Lab</span><span>Fitted cohort shares</span><span class="lm">25 min</span></li>
+<li><span class="lt case">Case study</span><span>Read real generation figures</span><span class="lm">25 min</span></li>
+<li><span class="lt quiz">Self-check</span><span>3 questions</span><span class="lm">5 min</span></li>
+</ul>
+<a class="go" href="modules/m4-generations-shares.html">Open Module 4 →</a></div></details>
+
+<details class="mod" data-module="m5"><summary><span class="num">5</span><span class="mt"><strong>Methods that are still MATLAB-only</strong><span>Smoothing, SAGE, EPIPHANY, joinpoint and the standard plots.</span></span><span class="mm">4 lessons · ~45 min</span><span class="tog" aria-hidden="true">+</span></summary><div class="body">
+<ul class="lessons">
+<li><span class="lt read">Reading</span><span>What is not in R yet</span><span class="lm">20 min</span></li>
+<li><span class="lt read">Reading</span><span>Choose a tool</span><span class="lm">10 min</span></li>
+<li><span class="lt lab">Lab</span><span>Try one in MATLAB Online</span><span class="lm">15 min</span></li>
+<li><span class="lt quiz">Self-check</span><span>2 questions</span><span class="lm">3 min</span></li>
+</ul>
+<a class="go" href="modules/m5-matlab-methods.html">Open Module 5 →</a></div></details>
+
+<details class="mod" data-module="m6"><summary><span class="num">6</span><span class="mt"><strong>Capstone: your own analysis</strong><span>Plan, run and document a reproducible APC analysis of your data.</span></span><span class="mm">5 lessons · ~2 h</span><span class="tog" aria-hidden="true">+</span></summary><div class="body">
+<ul class="lessons">
+<li><span class="lt read">Reading</span><span>Plan your question</span><span class="lm">15 min</span></li>
+<li><span class="lt lab">Lab</span><span>Prepare your data</span><span class="lm">30 min</span></li>
+<li><span class="lt lab">Lab</span><span>Analyse</span><span class="lm">45 min</span></li>
+<li><span class="lt read">Reading</span><span>Make it reproducible</span><span class="lm">20 min</span></li>
+<li><span class="lt quiz">Self-assessment</span><span>Checklist and 1 question</span><span class="lm">10 min</span></li>
+</ul>
+<a class="go" href="modules/m6-capstone.html">Open Module 6 →</a></div></details>
+
 </div>
-<p>Philip S. Rosenberg, PhD, developed the MATISSE toolbox and its code. The toolbox implements methods developed with the cancer surveillance research community. These include the APC methods described in Filho &amp; Rosenberg, Front Oncol 2024. The team listed above develops the course.</p>
-</section><section id="faq" class="home-faq"><h2>FAQ</h2><details><summary>Do I need to buy MATLAB to use MATISSE?</summary><p>You can use MATLAB Online in your browser. Sign in with a MathWorks account and check the current access terms. Follow <a href="getting-started.html#getting-started-with-matlab-online" target="_blank" rel="noopener">Getting started with MATLAB Online</a> to set up the toolbox. You need a MATLAB license to use a local copy.</p></details><details><summary>Do I need to know MATLAB already?</summary><p>Some familiarity helps. Start with the Overview live script to learn how the toolbox works. Run one section at a time and inspect the result. Use <a href="toolbox-guide.html#getting-help" target="_blank" rel="noopener">Getting help</a> when a command is unfamiliar.</p></details><details><summary>Is MATISSE peer reviewed / published?</summary><p>The methods are described in Filho &amp; Rosenberg, <em>Advances in statistical methods for cancer surveillance research: an age-period-cohort perspective</em> (Front Oncol, 2024). Download the paper from <a href="resources.html#downloads">Downloads</a>. For individual methods, such as SAGE and comparative APC analysis, open <a href="resources.html#related-methods-and-publications">Related methods and publications</a>.</p></details><details><summary>How do I ask a question or get help?</summary><p>Send us an email at <a href="mailto:matisse.apc@gmail.com">matisse.apc@gmail.com</a>. For quick answers about commands, use the toolbox's built-in help. See <a href="toolbox-guide.html#getting-help" target="_blank" rel="noopener">Getting help</a> for the commands.</p></details><details><summary>Will the live sessions be recorded?</summary><p>Yes. Recordings will be linked here when they are available.</p></details></section></div>
-```
+
+## Learn from two real projects
+
+Modules 2 to 4 show figures from real research projects built with `matisseR`. Read them as a learner, then run the same ideas on the synthetic example data.
+
+<div class="cases">
+<a class="case" href="cases/eu-generations.html"><div class="thumb"><img src="images/cases/eu_anatomy_apc.png" alt="Anatomy of the New APC model: observed rates, fitted cohort pattern, local drifts and temporal trend"></div><div class="txt"><strong>Cancer in successive generations in Europe</strong><span>Are younger generations at higher risk of cancer than their parents' generation? 21 European populations and 17 cancers.</span><em>Open case study →</em></div></a>
+<a class="case" href="cases/premature-mortality.html"><div class="thumb"><img src="images/cases/pm_anatomy_capricorn.png" alt="Anatomy of the comparative method: cancer against cardiovascular disease mortality at ages 30 to 69 in Australia, observed rate ratio, estimable functions and model tests"></div><div class="txt"><strong>Premature mortality across world regions</strong><span>How do cancer and cardiovascular disease mortality at ages 30 to 69 compare by age, period and birth cohort? Work in progress.</span><em>Open case study →</em></div></a>
+</div>
+
+## Live workshop
+
+A live workshop will use this course as its guide. Attendees work through selected modules with the team and ask questions. The format and dates will be announced on the [Live workshop](workshop.qmd) page.
+
+## Team
+
+<ul class="team">
+<li>Philip S. Rosenberg</li>
+<li>Hyuna Sung</li>
+<li>Kieran Kelly</li>
+<li>Chenxi Jiang</li>
+<li>Adalberto M. Filho</li>
+<li>Yasmmin Martins</li>
+</ul>
+
+Philip S. Rosenberg, PhD, developed the MATISSE toolbox and its methods. The R package `matisseR` is a port of that toolbox with additions. The team above develops the course.
+
+## FAQ {#faq}
+
+<div class="syllabus">
+<details class="mod"><summary><span class="mt"><strong>Do I need to know R already?</strong></span><span class="tog" aria-hidden="true">+</span></summary><div class="body"><p>Basic R helps: running code, reading a table, drawing a plot with ggplot2. Module 0 gets you set up, and every code sample runs as written. You do not need any APC background.</p></div></details>
+<details class="mod"><summary><span class="mt"><strong>Do I have to pay for anything?</strong></span><span class="tog" aria-hidden="true">+</span></summary><div class="body"><p>No. R, RStudio and matisseR are free. The MATLAB toolbox in Module 5 needs MATLAB, but you can use MATLAB Online in your browser with a MathWorks account; check MathWorks's current access terms.</p></div></details>
+<details class="mod"><summary><span class="mt"><strong>Is the real data in the case studies available?</strong></span><span class="tog" aria-hidden="true">+</span></summary><div class="body"><p>The code samples use synthetic datasets that ship with the package, so you can run everything yourself. The case-study figures come from research in progress, and their data come from public sources such as the WHO Mortality Database and European cancer registries.</p></div></details>
+<details class="mod"><summary><span class="mt"><strong>Is matisseR peer reviewed or published?</strong></span><span class="tog" aria-hidden="true">+</span></summary><div class="body"><p>The methods are published; see the <a href="resources.html#papers">method papers</a>. The R package is version 0.1.0 and is being developed. It has an internal test suite, and its comparison with the MATLAB toolbox is in preparation.</p></div></details>
+<details class="mod"><summary><span class="mt"><strong>How do I ask a question?</strong></span><span class="tog" aria-hidden="true">+</span></summary><div class="body"><p>Write to <a href="mailto:matisse.apc@gmail.com">matisse.apc@gmail.com</a>. Every function also has a help page in R, for example <code>?apc_fit</code>.</p></div></details>
+</div>
+
+::: {.callout-note title="Questions?"}
+Have a question? Send us an email at <a href="mailto:matisse.apc@gmail.com">matisse.apc@gmail.com</a>.
+:::

@@ -1,0 +1,84 @@
+<meta name="theme-color" content="#0B2E4F">
+<script>
+(function () {
+  var KEY = "matisseLearn.done.v1";
+  function load() { try { return JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { return []; } }
+  function save(a) { try { localStorage.setItem(KEY, JSON.stringify(a)); } catch (e) {} }
+  function ready(f) { if (document.readyState !== "loading") f(); else document.addEventListener("DOMContentLoaded", f); }
+
+  ready(function () {
+    // ---- self-check quizzes: <div class="quiz" data-answer="2"> question, <ol> options, <div class="explain"> ----
+    var n = 0;
+    document.querySelectorAll("div.quiz").forEach(function (q) {
+      var ol = q.querySelector("ol");
+      if (!ol) return;
+      n += 1;
+      var answer = parseInt(q.getAttribute("data-answer"), 10);
+      var explain = q.querySelector(".explain");
+      var box = document.createElement("div");
+      box.className = "opts";
+      box.setAttribute("role", "radiogroup");
+      Array.prototype.forEach.call(ol.children, function (li, i) {
+        var label = document.createElement("label");
+        var input = document.createElement("input");
+        input.type = "radio";
+        input.name = "quiz" + n;
+        input.value = String(i + 1);
+        var span = document.createElement("span");
+        span.innerHTML = li.innerHTML;
+        label.appendChild(input);
+        label.appendChild(span);
+        box.appendChild(label);
+      });
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = "Check answer";
+      var fb = document.createElement("p");
+      fb.className = "fb";
+      fb.hidden = true;
+      fb.setAttribute("aria-live", "polite");
+      btn.addEventListener("click", function () {
+        var picked = box.querySelector("input:checked");
+        if (!picked) { fb.hidden = false; fb.className = "fb"; fb.textContent = "Choose an answer first."; return; }
+        var ok = parseInt(picked.value, 10) === answer;
+        box.querySelectorAll("label").forEach(function (l) { l.classList.remove("right", "wrong"); });
+        picked.parentNode.classList.add(ok ? "right" : "wrong");
+        fb.hidden = false;
+        fb.className = "fb " + (ok ? "ok" : "no");
+        fb.innerHTML = "<strong>" + (ok ? "Correct. " : "Not quite. ") + "</strong>" + (explain ? explain.innerHTML : "");
+      });
+      ol.replaceWith(box);
+      q.appendChild(btn);
+      q.appendChild(fb);
+    });
+
+    // ---- completion buttons on module pages ----
+    document.querySelectorAll(".complete[data-module]").forEach(function (c) {
+      var id = c.getAttribute("data-module");
+      var b = c.querySelector("button");
+      function paint() {
+        var on = load().indexOf(id) >= 0;
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+        b.textContent = on ? "Completed ✓" : "Mark module complete";
+      }
+      b.addEventListener("click", function () {
+        var d = load(), i = d.indexOf(id);
+        if (i >= 0) d.splice(i, 1); else d.push(id);
+        save(d); paint();
+      });
+      paint();
+    });
+
+    // ---- progress on the course home page ----
+    var done = load();
+    var mods = document.querySelectorAll(".mod[data-module]");
+    mods.forEach(function (m) { if (done.indexOf(m.getAttribute("data-module")) >= 0) m.classList.add("done"); });
+    document.querySelectorAll(".progress-line").forEach(function (p) {
+      var total = mods.length, k = document.querySelectorAll(".mod.done").length;
+      var t = p.querySelector(".pt"), bar = p.querySelector(".bar i");
+      if (t) t.textContent = k + " of " + total + " modules complete (saved in this browser)";
+      if (bar && total) bar.style.width = Math.round(100 * k / total) + "%";
+    });
+  });
+})();
+</script>

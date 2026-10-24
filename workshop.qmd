@@ -1,0 +1,41 @@
+---
+title: "Live workshop"
+subtitle: "A live workshop based on this course is planned for 2027"
+---
+
+<p class="eyebrow">LIVE WORKSHOP · 2027 · DATES TO BE ANNOUNCED</p>
+
+::: {.callout-note title="Status"}
+The dates and the final format are not set. This page will carry the announcement, the registration details and the schedule when they are ready. The plan below is preliminary.
+:::
+
+## What the workshop is
+
+The workshop uses this website as its guide. Attendees work through selected [modules](index.qmd#syllabus) with the team, run the code themselves, and ask questions as they go. The material stays online afterwards, so you can finish at your own pace.
+
+It is for epidemiologists, surveillance and registry researchers, and biostatisticians. No experience with age-period-cohort analysis is needed.
+
+## Preliminary plan
+
+- **Day 1: overview and APC primer.** What APC analysis is for, the New APC model, a tour of this course site, and how to prepare registry data for the NCI web tool.
+- **Day 2: how to move forward.** Comparative methods, the SAGE method, a high-level look at the theory, and the directions the methods can take you.
+- **Optional follow-up.** A smaller drop-in session for anyone who wants to go deeper into the theory and methods.
+
+Time is set aside for questions at the end of each session. Recorded lectures will be posted on the [MATISSE YouTube channel](https://www.youtube.com/@filhoam).
+
+## Get ready now
+
+- Work through [Module 0](modules/m0-welcome.qmd) to install R and `matisseR`.
+- Read [Module 1](modules/m1-lexis-rates.qmd) if Lexis diagrams are new to you.
+- Send questions, or tell us you are interested, at <a href="mailto:matisse.apc@gmail.com">matisse.apc@gmail.com</a>.
+
+## Team
+
+<ul class="team">
+<li>Philip S. Rosenberg</li>
+<li>Hyuna Sung</li>
+<li>Kieran Kelly</li>
+<li>Chenxi Jiang</li>
+<li>Adalberto M. Filho</li>
+<li>Yasmmin Martins</li>
+</ul>

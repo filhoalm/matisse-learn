@@ -1,0 +1,96 @@
+---
+title: "Module 5 · Methods that are still MATLAB-only"
+subtitle: "Smoothing, SAGE, EPIPHANY, joinpoint and the standard plots"
+---
+
+<p class="eyebrow">MODULE 5 OF 6 · ABOUT 45 MINUTES · READING</p>
+
+<div class="objectives"><h4>By the end of this module you will</h4>
+<ul>
+<li>know which MATISSE methods are not yet in <code>matisseR</code>;</li>
+<li>understand in one sentence what each of them does;</li>
+<li>be able to choose between R and MATLAB for your analysis, and find the MATLAB material.</li>
+</ul></div>
+
+<ul class="lesson-index">
+<li><a href="#what-is-not-in-r-yet">5.1 What is not in R yet</a></li>
+<li><a href="#choose-a-tool">5.2 Choose a tool</a></li>
+<li><a href="#try-one-in-matlab-online">5.3 Try one in MATLAB Online</a></li>
+<li><a href="#self-check">Self-check</a></li>
+</ul>
+
+<div class="lesson-tag"><span class="lt read">Reading</span><span class="lm">20 min</span></div>
+
+## What is not in R yet {#what-is-not-in-r-yet}
+
+`matisseR` (version 0.1.0) ports the core of MATISSE: rates objects, the New APC model with five estimable functions, and CAPRICORN. It adds the generation and share tools you met in Module 4. Several other MATISSE methods exist **only in the MATLAB toolbox**, which Philip S. Rosenberg wrote and which remains the reference implementation.
+
+| Method | What it does | MATLAB | Read more |
+|---|---|---|---|
+| **Smoothing Lexis diagrams** | Denoises a matrix of rates with a panel of kernel filters, keeping an optimal balance of bias and variance | `sift`, `panko` | [Smoothing methods for Lexis diagrams](https://journals.sagepub.com/doi/10.1177/09622802231192950) |
+| **SAGE** (semiparametric APC) | Smooths the observed rates with SIFT, then fits the New APC model to the smoothed rates. Gives smoother estimable functions, which helps most when counts per cell are modest | `sage` | [Cancer incidence trends in successive social generations, JAMA Netw Open 2024](https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2819747) |
+| **EPIPHANY** (exploratory comparative APC) | Given K groups, finds the best-fitting partition into proportional subsets and non-proportional singletons, so you can group estimable functions as equal, parallel or unequal | `epiphany` | [Comparative APC analysis, BMC Med Res Methodol 2023](https://link.springer.com/article/10.1186/s12874-023-02039-8) |
+| **Joinpoint regression** | Piecewise linear trends with the number and location of knots chosen from the data | `joinpoint` | [Joinpoint method paper](https://pubmed.ncbi.nlm.nih.gov/10649300/) |
+| **Standard plots and summary curves** | The four standard plots of rates (versus period, age or cohort) and marginal summary curves | `rates` methods `salsa`, `ftp`, `line`, `sierra`, `scan` | [Toolbox guide](../matlab/toolbox.qmd) |
+| **More estimable functions** | Gradient shifts, deviations, rate ratios, and likelihood-ratio and Wald tests for APC submodels | `apc` methods `ef`, `lrt`, `wald`, `aic` | [Toolbox guide](../matlab/toolbox.qmd) |
+
+::: {.callout-note title="A note on validation"}
+`matisseR` has an internal test suite, and a folder in the package sets up a side-by-side comparison of R and MATLAB results on the same data. The MATLAB side of that comparison has not been run yet, so treat the two as equivalent in method but not yet cross-checked number by number.
+:::
+
+The MATISSE system map shows where every class and method sits. The R package covers part of it.
+
+![](../images/system_map.png){fig-alt="Subway-style map of MATISSE classes and methods: rates, apc, epiphany, capricorn, sift, sage, panko, joinpoint and matrix." width="70%"}
+
+<div class="lesson-tag"><span class="lt read">Reading</span><span class="lm">10 min</span></div>
+
+## Choose a tool {#choose-a-tool}
+
+| You want to... | Use |
+|---|---|
+| Fit the New APC model, read the estimable functions, compare groups with CAPRICORN | **R** (`matisseR`) or MATLAB; the methods are the same |
+| Compare social generations, cohort shares, or pool results across many populations in a script | **R**: these tools are in `matisseR` only |
+| Run many analyses reproducibly in a pipeline | **R** |
+| Smooth sparse rates, fit SAGE, run EPIPHANY, fit joinpoint models, draw the four standard plots | **MATLAB** until they are ported |
+
+You do not have to choose once. A common workflow smooths and fits in MATLAB, then moves rate tables to R for the generation and pooling steps.
+
+<div class="lesson-tag"><span class="lt lab">Hands-on lab</span><span class="lm">15 min</span></div>
+
+## Try one in MATLAB Online {#try-one-in-matlab-online}
+
+You do not need a MATLAB license: [MATLAB Online](https://www.mathworks.com/products/matlab-online.html) runs in a browser with a MathWorks account. The [MATLAB guide](../matlab/guide.qmd) walks through the setup. Then open the first live script directly:
+
+<a href="https://matlab.mathworks.com/open/github/v1?repo=filhoalm/matisse-learn&file=downloads/MATISSE_1_Overview.mlx"><img src="../images/open-in-matlab-online.svg" alt="Open in MATLAB Online" width="136" height="20"></a>
+
+Work through the Overview live script one section at a time. Find the `sift` and `sage` lines on the system map, then use `help sage/sage` in MATLAB to read how SAGE is called.
+
+<div class="lesson-tag"><span class="lt quiz">Self-check</span><span class="lm">3 min</span></div>
+
+## Self-check {#self-check}
+
+::: {.quiz data-answer="2"}
+**What does SAGE do?**
+
+1. It compares groups with likelihood-ratio tests.
+2. It smooths the observed rates with SIFT and then fits the New APC model to the smoothed rates.
+3. It draws the four standard plots.
+
+::: explain
+SAGE is a two-step approach: denoise the rates, then fit the New APC model. Its estimable functions are smoother than those of the standard model, which helps most when counts are modest.
+:::
+:::
+
+::: {.quiz data-answer="1"}
+**Which of these tools is in `matisseR` but not in the MATLAB toolbox?**
+
+1. Social generation contrasts and cohort shares.
+2. SIFT smoothing.
+3. Joinpoint regression.
+
+::: explain
+The generation and share tools are additions in `matisseR`. SIFT, SAGE, EPIPHANY and joinpoint are in the MATLAB toolbox only, for now.
+:::
+:::
+
+<div class="complete" data-module="m5"><p><strong>Finished this module?</strong> Mark it complete to track your progress.</p><button type="button" aria-pressed="false">Mark module complete</button></div>

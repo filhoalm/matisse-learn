@@ -1,0 +1,203 @@
+---
+title: "Module 2 · The New APC model"
+subtitle: "Fit the model and read its estimable functions"
+---
+
+```{r}
+#| include: false
+source("../assets/setup.R")
+source("../assets/plot_ef.R")
+```
+
+<p class="eyebrow">MODULE 2 OF 6 · ABOUT 2 HOURS · INTERMEDIATE</p>
+
+<div class="objectives"><h4>By the end of this module you will be able to</h4>
+<ul>
+<li>explain why age, period and cohort effects cannot all be separated, and what the New APC model estimates instead;</li>
+<li>fit the model with <code>apc_fit()</code> and interpret the net drift;</li>
+<li>extract and plot the five estimable functions: LAC, CAC, FTT, FCP and local drifts;</li>
+<li>read a fully annotated APC figure from a real study.</li>
+</ul></div>
+
+<ul class="lesson-index">
+<li><a href="#why-apc-is-hard">2.1 Why APC is hard</a></li>
+<li><a href="#fit-the-model">2.2 Fit the model</a></li>
+<li><a href="#estimable-functions">2.3 Estimable functions</a></li>
+<li><a href="#read-a-real-figure">2.4 Read a real figure</a></li>
+<li><a href="#self-check">Self-check</a></li>
+</ul>
+
+<div class="lesson-tag"><span class="lt read">Reading</span><span class="lm">15 min</span></div>
+
+## Why APC is hard {#why-apc-is-hard}
+
+Age, period and cohort are linked by one equation: **cohort = period - age**. If you know any two, you know the third. As a result, you cannot attribute the *linear* part of a trend uniquely to period or to cohort. A steady 2% yearly rise in rates could be a period effect (everyone's risk changes together) or a cohort effect (each generation starts higher than the one before), and the data cannot tell them apart. This is the classic **identification problem** of APC analysis.
+
+The **New APC model** ([Rosenberg, Stat Methods Med Res](https://journals.sagepub.com/doi/10.1177/0962280218801121)) sidesteps it. Instead of reporting parameters that cannot be identified, it reports quantities that can, called **estimable functions**, and it keeps the unidentifiable linear trend in one clearly labeled number, the **net drift**:
+
+- the **net drift** is the overall annual percent change in rates. It cannot be assigned to period or to cohort alone, so it appears in both the cohort pattern and the temporal trend;
+- everything else is **curvature**: how age, period and cohort effects bend away from straight lines. Curvature is identifiable, and it is where period and cohort effects show up.
+
+The model is a log-linear regression on the rates of a Lexis diagram. By default `matisseR` fits it by **weighted least squares** on log rates with the covariance scaled for overdispersion (`method = "wls"`, as in MATISSE). A Poisson regression is available with `method = "poisson"`.
+
+<div class="lesson-tag"><span class="lt lab">Hands-on lab</span><span class="lm">25 min</span></div>
+
+## Fit the model {#fit-the-model}
+
+Prepare the data as in Module 1 (5 x 5 cells, zeros filled) and fit:
+
+```{r}
+R55 <- rates_fill(rates_chunk(matisse_example(1), age_block = 5, per_block = 5))
+M <- apc_fit(R55)
+M$net_drift     # percent per year
+M$method
+```
+
+The net drift of about 2% per year says that, across ages and periods, rates rise about 2% each year. The confidence interval of each estimable function comes from the model's covariance matrix, so you can judge how precise this is.
+
+Because the example data are synthetic, you can check the answer. The index lists the **true** net drift that generated each dataset. Compare it with the estimate from the single-year cells (1 x 1) and from 5 x 5 cells:
+
+```{r}
+ids <- c(1, 5, 6)
+net_drift <- function(i, k) apc_fit(rates_fill(rates_chunk(matisse_example(i), k, k)))$net_drift
+data.table(example = ids,
+           site = matisse_example()[number %in% ids, site],
+           true_net_drift = matisse_example()[number %in% ids, net_drift],
+           estimated_1x1 = sapply(ids, net_drift, k = 1),
+           estimated_5x5 = sapply(ids, net_drift, k = 5))
+```
+
+In these three examples the single-year estimates are within about 0.1 percentage points of the truth. The 5 x 5 estimates are less close: for the lung example, whose true drift is near zero, the 5 x 5 estimate is about zero. Coarser cells leave only five periods to estimate a trend from, and the counts are random Poisson draws, as in real data. Wider cells are not always better: they gain stable counts and lose time resolution.
+
+::: {.callout-tip title="Try it"}
+Fit examples 2, 3 and 4 the same way and compare each estimate with `matisse_example()$net_drift`. Example 3 is a small population with many zero cells. Is it estimated as well as example 2?
+:::
+
+<div class="lesson-tag"><span class="lt read">Reading + lab</span><span class="lm">40 min</span></div>
+
+## Estimable functions {#estimable-functions}
+
+An **estimable function** (EF) is a curve built from the model's coefficients that does not depend on how the unidentifiable linear trend is assigned. `matisseR` provides five. Each is a slice through the fitted Lexis diagram:
+
+| Function | `comp` | Shows | Reference value |
+|---|---|---|---|
+| Longitudinal age curve | `"lac"` | Rates by age *along one birth cohort* | a reference cohort |
+| Cross-sectional age curve | `"cac"` | Rates by age *within one period* | a reference period |
+| Fitted temporal trend | `"ftt"` | Rates by calendar period at a fixed age | a reference age |
+| Fitted cohort pattern | `"fcp"` | Rates by birth cohort at a fixed age | a reference age |
+| Local drifts | `"ld"` | Annual percent change at each age | none |
+
+By default the reference age and period are the central ones, and the reference cohort is the one passing through them. `apc_ef()` returns one function and `apc_efs()` returns several in a single long table, with 95% confidence limits:
+
+```{r}
+E <- apc_efs(M)
+E[, .(reference = unique(round(ref, 1)), from = min(x), to = max(x), points = .N), by = ef]
+head(E[ef == "fcp"], 3)
+```
+
+::: {.callout-note title="Observed cohorts only"}
+The model can carry every cohort to the reference age, including cohorts that were never observed near that age. Those values are projections, and projection is **not covered in this course**. From here on we keep only the cohorts with a Lexis cell within 5 years of the reference age. The course helper `observed_cohorts()` finds them, and you can read it in the setup file.
+:::
+
+```{r}
+obs <- observed_cohorts(R55, E[ef == "fcp", unique(ref)])
+E <- E[ef != "fcp" | x %in% obs]
+range(obs)
+```
+
+Rates are per 100,000 person-years for LAC, CAC, FTT and FCP. Local drifts are annual percent changes. Plotting uses a small helper, `plot_ef()`, defined in the course setup file (open it to read it):
+
+```{r}
+#| file: ../assets/plot_ef.R
+#| code-fold: true
+#| code-summary: "Show the plot_ef() helper"
+#| eval: false
+```
+
+```{r}
+#| label: fig-efs
+#| fig-width: 9
+#| fig-height: 5.4
+#| fig-cap: "The five estimable functions of the New APC model for synthetic melanoma-like rates (example 1, 5 x 5 cells). Bands are 95% confidence intervals; rate axes are logarithmic. The cohort pattern is drawn only for cohorts observed near the reference age."
+(plot_ef(E, "lac", "Age", "Rate per 100,000") + plot_ef(E, "cac", "Age", "Rate per 100,000") +
+   plot_ef(E, "ld",  "Age", "% change per year")) /
+  (plot_ef(E, "ftt", "Calendar period", "Rate per 100,000") +
+   plot_ef(E, "fcp", "Birth cohort", "Rate per 100,000") + plot_spacer())
+```
+
+Read the figure like this:
+
+- **LAC and CAC** both show the strong age gradient. They differ because LAC follows one cohort through its life, while CAC compares all ages in one period.
+- **FTT** shows how rates at the reference age move with calendar time.
+- **FCP** shows how rates at that same age differ between generations. A rising pattern means that each later cohort has higher rates at that age.
+- **Local drifts** show where in life the increase is happening. Here the annual increase is largest in the middle ages.
+
+### Choosing a reference age
+
+The cohort pattern depends on the reference age you choose. `apc_fcp()` lets you set it, and it can use any age, interpolating between age groups:
+
+```{r}
+f50 <- fcp_observed(apc_fcp(M, age = 50), R55)
+f60 <- fcp_observed(apc_fcp(M, age = 60), R55)
+merge(data.table(cohort = f50$x, rate_age50 = round(f50$f, 1)),
+      data.table(cohort = f60$x, rate_age60 = round(f60$f, 1)), by = "cohort", all = TRUE)
+```
+
+Each age has its own set of observed cohorts: older cohorts are observed at age 60, younger ones at age 50. A cohort missing from a column was not observed near that age. Choose an age that matters for your question and at which the cohorts you want to compare are observed. The case studies use age 50.
+
+<div class="lesson-tag"><span class="lt case">Case study</span><span class="lm">20 min</span></div>
+
+## Read a real figure {#read-a-real-figure}
+
+The figure below is the "anatomy" of the New APC model from the Europe case study: rectum cancer incidence in England, women (pink) and men (green). It combines everything in this module. Its caption explains each panel.
+
+![](../images/cases/eu_anatomy_apc.png){fig-alt="Four panels: observed rates on the Lexis diagram, fitted cohort pattern at age 50, local drifts by age, and fitted temporal trend with period deviations, for women and men." width="85%"}
+
+*Preliminary figure from the [Europe case study](../cases/eu-generations.qmd) (work in progress). Dashed and faded parts are cohorts projected to the reference age; projection is not covered in this course. (A) Observed rates in the 5 x 5 Lexis cells, ages 20 to 84 and periods 1973 to 2017; dashed diagonals mark the first birth year of each social generation and the orange line marks age 50. (B) Fitted cohort pattern at age 50; solid for cohorts observed in mid-life, dashed for projected cohorts. (C) Local drift of each age group, with the net drift dashed. (D) Fitted temporal trend at age 50 (solid), the trend from net drift alone (dashed), and period deviations below.*
+
+::: {.callout-tip title="Try it"}
+Find the estimable functions in the figure. Which panel shows the FCP? The FTT? Which line in panel C is the net drift, and at which ages do the local drifts fall below it?
+:::
+
+
+<div class="lesson-tag"><span class="lt quiz">Self-check</span><span class="lm">5 min</span></div>
+
+## Self-check {#self-check}
+
+::: {.quiz data-answer="2"}
+**What does the net drift of an APC model measure?**
+
+1. The effect of the most recent birth cohort.
+2. The overall linear trend of rates, as annual percent change, which cannot be assigned to period or cohort alone.
+3. The difference between the oldest and youngest age groups.
+
+::: explain
+The net drift is the one number that keeps the unidentifiable linear trend. It appears in both the fitted cohort pattern and the fitted temporal trend. Everything else in the model is curvature.
+:::
+:::
+
+::: {.quiz data-answer="3"}
+**Which estimable function shows how rates at a fixed age differ between successive generations?**
+
+1. Longitudinal age curve (LAC)
+2. Fitted temporal trend (FTT)
+3. Fitted cohort pattern (FCP)
+
+::: explain
+FCP plots the rate at a reference age against birth cohort. FTT plots the same age against calendar period, and the age curves (LAC, CAC) plot rates against age.
+:::
+:::
+
+::: {.quiz data-answer="1"}
+**Local drift at age 70 is 1.8 (percent per year). What does that mean?**
+
+1. Rates at age 70 rose by about 1.8% per year over the study period, from period and cohort effects together.
+2. Rates at age 70 are 1.8% higher than at age 69.
+3. About 1.8% of 70-year-olds have the disease.
+
+::: explain
+Local drifts are annual percent changes in the rates of each age group over time. They combine period and cohort influences, just as the net drift does.
+:::
+:::
+
+<div class="complete" data-module="m2"><p><strong>Finished this module?</strong> Mark it complete to track your progress.</p><button type="button" aria-pressed="false">Mark module complete</button></div>

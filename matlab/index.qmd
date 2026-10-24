@@ -1,0 +1,31 @@
+---
+title: "MATLAB toolbox"
+subtitle: "The original MATISSE toolbox: the reference implementation, and the methods not yet in R"
+---
+
+**MATISSE** (**MA**TLAB **T**oolbox for v**I**tal rate**S** **S**urveillanc**E**) was written by Philip S. Rosenberg. It implements the methods described in [Filho & Rosenberg, Front Oncol 2024](https://www.frontiersin.org/journals/oncology/articles/10.3389/fonc.2023.1332429/full), and the R package [`matisseR`](https://github.com/filhoalm/matisseR) is a port of its core. The MATLAB toolbox remains the reference implementation and still has several methods that R does not: smoothing (SIFT), SAGE, EPIPHANY, joinpoint regression and the standard plots. [Module 5](../modules/m5-matlab-methods.qmd) explains when to use it.
+
+MATISSE is free to use through [MATLAB Online](https://www.mathworks.com/products/matlab-online.html) with a MathWorks account (check MathWorks's current access terms), or locally if you have a MATLAB license.
+
+## Start here
+
+1. **Set up:** follow the [MATLAB guide](guide.qmd). It opens the first live script in MATLAB Online:
+
+    <a href="https://matlab.mathworks.com/open/github/v1?repo=filhoalm/matisse-learn&file=downloads/MATISSE_1_Overview.mlx"><img src="../images/open-in-matlab-online.svg" alt="Open in MATLAB Online" width="136" height="20"></a>
+
+2. **Learn the design:** read the [Toolbox guide](toolbox.qmd) (objects, the system map, built-in help).
+3. **Run examples:** work through the [MATLAB examples](examples.qmd).
+
+**Short videos** (YouTube): [the system map](https://www.youtube.com/watch?v=6frwitiOJ_Y) (22 sec) and [visualizing a Lexis diagram](https://www.youtube.com/watch?v=dzQgEBVj48o) (43 sec).
+
+## Downloads {#downloads}
+
+The user's guide is a growing set of MATLAB live scripts (`.mlx`) with companion slides. Use the slides to review the concepts and the live scripts to run the code.
+
+| File | Description | Size |
+|---|---|---|
+| [MATISSE_toolbox.zip](../downloads/MATISSE_toolbox.zip) | The toolbox: all classes (`@apc`, `@rates`, `@sage`, ...), graphics and statistics functions, and 16 example SEER datasets | 0.9 MB |
+| [MATISSE_1_Overview.mlx](../downloads/MATISSE_1_Overview.mlx) | User's guide 1: design philosophy, object model, system map, help system, graphics options | 1.2 MB |
+| [MATISSE_2_The_Lexis_Diagram.mlx](../downloads/MATISSE_2_The_Lexis_Diagram.mlx) | User's guide 2: the `rates` class, `pcolor`, `surf` and `lexis` methods, comparing several Lexis diagrams | 2.6 MB |
+| [Statistical_Methods_in_CSR.pptx](../downloads/Statistical_Methods_in_CSR.pptx) | Slides: statistical methods in cancer surveillance research | 1.0 MB |
+| [The_Lexis_Diagram.pptx](../downloads/The_Lexis_Diagram.pptx) | Slides: the Lexis diagram | 3.1 MB |

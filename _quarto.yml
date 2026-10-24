@@ -1,0 +1,104 @@
+project:
+  type: website
+  output-dir: docs
+  resources:
+    - .nojekyll
+    - data/*.csv
+    - downloads/*
+  render:
+    - index.qmd
+    - workshop.qmd
+    - resources.qmd
+    - modules/*.qmd
+    - cases/*.qmd
+    - matlab/*.qmd
+
+execute:
+  echo: true
+  warning: false
+  message: false
+  freeze: auto
+
+website:
+  title: "matisseR Learn"
+  site-url: https://filhoalm.github.io/matisse-learn/
+  repo-url: https://github.com/filhoalm/matisse-learn
+  favicon: images/favicon.png
+  page-navigation: true
+  bread-crumbs: false
+  back-to-top-navigation: true
+  search:
+    location: navbar
+    type: overlay
+  navbar:
+    background: "#0B2E4F"
+    foreground: "#FFFFFF"
+    collapse-below: lg
+    left:
+      - text: "Course"
+        href: index.qmd
+      - text: "Modules"
+        href: modules/m0-welcome.qmd
+      - text: "Case studies"
+        href: cases/eu-generations.qmd
+      - text: "Resources"
+        href: resources.qmd
+      - text: "MATLAB"
+        href: matlab/index.qmd
+      - text: "Live workshop"
+        href: workshop.qmd
+    tools:
+      - icon: github
+        href: https://github.com/filhoalm/matisseR
+        text: matisseR on GitHub
+  sidebar:
+    - id: modules
+      title: "Course content"
+      style: docked
+      collapse-level: 1
+      contents:
+        - section: "Modules"
+          contents:
+            - modules/m0-welcome.qmd
+            - modules/m1-lexis-rates.qmd
+            - modules/m2-new-apc-model.qmd
+            - modules/m3-capricorn.qmd
+            - modules/m4-generations-shares.qmd
+            - modules/m5-matlab-methods.qmd
+            - modules/m6-capstone.qmd
+        - section: "Case studies"
+          contents:
+            - cases/eu-generations.qmd
+            - cases/premature-mortality.qmd
+    - id: matlab
+      title: "MATLAB toolbox"
+      style: docked
+      contents:
+        - matlab/index.qmd
+        - matlab/guide.qmd
+        - matlab/toolbox.qmd
+        - matlab/examples.qmd
+  page-footer:
+    left: "matisseR Learn · age-period-cohort analysis for disease surveillance"
+    center: "Questions? <a href=\"mailto:matisse.apc@gmail.com\">matisse.apc@gmail.com</a><span class=\"credit\">Header artwork: Henri Matisse, Composition (Velvets), 1947. Image: incamerastock / Alamy Stock Photo.</span>"
+    right: "Built with <a href=\"https://quarto.org\">Quarto</a>"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    title-block-banner: "#0B2E4F"
+    title-block-banner-color: "#FFFFFF"
+    toc: true
+    toc-depth: 3
+    toc-title: "On this page"
+    smooth-scroll: true
+    code-copy: true
+    code-overflow: scroll
+    df-print: kable
+    fig-format: png
+    fig-dpi: 144
+    fig-align: center
+    include-in-header: assets/learn-head.html
+    link-external-icon: false
+    link-external-newwindow: true

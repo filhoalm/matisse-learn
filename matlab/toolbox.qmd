@@ -1,0 +1,63 @@
+---
+title: "Toolbox guide"
+subtitle: "Understand objects, explore methods, and find help"
+---
+## Overview
+
+**MATISSE** stands for MATLAB Toolbox for vital rates surveillance. It brings together methods for studying cancer rates. Read the scientific background in [*Advances in statistical methods for cancer surveillance research: an age-period-cohort perspective*](https://www.frontiersin.org/journals/oncology/articles/10.3389/fonc.2023.1332429/full).
+
+MATISSE includes the analyses available in the [Age-Period-Cohort Analysis Web Tool](https://dceg.cancer.gov/tools/analysis/apc). It also provides comparative APC analysis, methods for smoothing Lexis diagrams, and semiparametric APC analysis (SAGE). A **Lexis diagram** displays rates by age and calendar period. Use [Related methods and publications](../resources.html#papers) to learn more about each method.
+
+MATISSE is free to use. Open it in [MATLAB Online](https://www.mathworks.com/products/matlab-online.html), or use a local copy of MATLAB if you have a license. Check the current MATLAB Online access terms when you sign in.
+
+## Design
+
+MATISSE uses an [object-oriented design](https://www.mathworks.com/company/technical-articles/introduction-to-object-oriented-programming-in-matlab.html). An **object** stores data or a fitted model. A **class** defines a type of object. A **method** is a function that works with that type of object. Start with these four classes:
+
+-   A `rates` object stores rates by age and calendar period.
+-   An `apc` object stores an APC analysis fitted to a `rates` object.
+-   A `tbl` object stores a table of values with row and column labels.
+-   A `matrix` object stores values and their uncertainty. It carries that uncertainty through calculations, so you do not need to write separate code for each step.
+
+The core classes shipped in the toolbox:
+
+| Class            | Purpose                                                                                     |
+|------------------------------------|------------------------------------|
+| `rates`          | Age-specific event rates over time (Lexis diagrams); descriptive plots and age-standardized rates (ASRs)        |
+| `apc`            | The new age-period-cohort model                                                             |
+| `epiphany`       | Exploratory comparative age-period-cohort analysis                                          |
+| `capricorn`      | Hypothesis-based comparative age-period-cohort analysis                                     |
+| `joinpoint`      | Joinpoint regression                                                                        |
+| `sift`           | Singular-value adaptive kernel filtration                                                   |
+| `sage`           | Semiparametric age-period-cohort analysis                                                   |
+| `panko`          | Kernel smoothing utilities feeding into `sift`                                              |
+| `tbl` / `matrix` | Lightweight labeled-data and error-propagating array containers underlying everything above |
+
+### System map
+
+**Video:** [Watch the system map guide on YouTube](https://www.youtube.com/watch?v=6frwitiOJ_Y) (22 sec).
+
+Use the system map to find the classes and methods you need. Each class is a line, and its methods are the stops. The `rates` and `matrix` classes are hubs that connect parts of the toolbox. Add the toolbox to your MATLAB path, then run this command to open the map:
+
+``` matlab
+matisse('map')
+```
+
+![MATISSE system map](../images/system_map.png){fig-alt="Map of MATISSE classes and methods, styled after a subway map" width="90%"}
+
+## Scripting with MATISSE
+
+A working example gives you a starting point for your own analysis. Open a live script (`.mlx`) from the user's guide in Downloads. Copy the relevant section into a new script, then change the data inputs. Try small changes in the MATLAB Command Window before adding them to your script.
+
+## Getting help
+
+The built-in help explains how each function works and which inputs it needs. Use it when you are unsure how to run a command. Enter these commands in the MATLAB Command Window:
+
+``` matlab
+help rates/rates          % help for a specific class
+methods rates              % list every method of a class
+help rates/fill             % help for a specific method
+doc('rates')                 % open help in a standalone window
+```
+
+

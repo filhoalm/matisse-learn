@@ -1,0 +1,204 @@
+---
+title: "Module 1 · Lexis diagrams and rates objects"
+subtitle: "Organize cases and person-years by age, period and cohort"
+---
+
+```{r}
+#| include: false
+source("../assets/setup.R")
+```
+
+<p class="eyebrow">MODULE 1 OF 6 · ABOUT 1.5 HOURS · BEGINNER</p>
+
+<div class="objectives"><h4>By the end of this module you will be able to</h4>
+<ul>
+<li>read a Lexis diagram and name the age, period and cohort direction of a cell;</li>
+<li>build and inspect a <code>rates</code> object from the example data, a CSV file, or your own table;</li>
+<li>combine cells (<code>rates_chunk()</code>), fill zero cells (<code>rates_fill()</code>) and interpolate ages (<code>rates_i5()</code>);</li>
+<li>draw a Lexis diagram with <code>lexis_plot()</code>.</li>
+</ul></div>
+
+<ul class="lesson-index">
+<li><a href="#the-lexis-diagram">1.1 The Lexis diagram</a></li>
+<li><a href="#rates-objects">1.2 Rates objects</a></li>
+<li><a href="#prepare-rates-for-modelling">1.3 Prepare rates for modelling</a></li>
+<li><a href="#bring-your-own-data">1.4 Bring your own data</a></li>
+<li><a href="#self-check">Self-check</a></li>
+</ul>
+
+<div class="lesson-tag"><span class="lt read">Reading</span><span class="lm">15 min</span></div>
+
+## The Lexis diagram {#the-lexis-diagram}
+
+<a class="course-video-card" href="https://www.youtube.com/watch?v=dzQgEBVj48o" target="_blank" rel="noopener" aria-label="Watch Visualizing a Lexis diagram on YouTube, 43 seconds, opens in a new tab"><span class="course-video-preview"><img src="https://i.ytimg.com/vi/dzQgEBVj48o/hqdefault.jpg" alt="" loading="lazy"><span class="course-video-play" aria-hidden="true">▶</span><span class="course-video-duration">0:43</span></span><span class="course-video-caption"><strong>Visualizing a Lexis diagram</strong><span>Short video made with the MATLAB toolbox ↗</span></span></a>
+
+A **Lexis diagram** is a grid with calendar **period** on one axis and **age** on the other. Each cell holds two numbers for a surveilled population: the **events** (for example, new cases of a disease, or deaths) and the **person-years** at risk. Their ratio is the **rate**, usually quoted per 100,000 person-years.
+
+Because everyone ages one year per calendar year, a person moves diagonally through the grid. All people in the same diagonal were born in the same years, so the diagonals are **birth cohorts**. For a cell with midpoints *a* (age) and *p* (period):
+
+$$\text{cohort} = p - a$$
+
+A person aged 50 in 2000 belongs to the 1950 cohort. Every cell therefore carries all three time scales at once, and that is why APC analysis needs a model: age, period and cohort cannot be separated by reading the table.
+
+`lexis_plot()` shows the same rates twice: over age and period (left), and over age and birth cohort (right). Here it is for the first example dataset, with cells combined to 5 years of age by 5 years of period:
+
+```{r}
+#| label: fig-lexis
+#| fig-width: 9
+#| fig-height: 4.2
+#| fig-cap: "Synthetic melanoma-like rates in women (example 1), 5 x 5 cells. Left: age by period. Right: the same cells by age and birth cohort."
+R <- matisse_example(1)
+R55 <- rates_chunk(R, age_block = 5, per_block = 5)
+lexis_plot(R55)
+```
+
+Rates rise steeply with age, which dominates the picture. To see period and cohort effects you need a model that holds age fixed. That is the subject of [Module 2](m2-new-apc-model.qmd).
+
+::: {.callout-note title="In the case studies"}
+The Europe study models 5-year age groups from 20 to 84 in 5-year periods (for example, 1973 to 2017 for England). It is a Lexis diagram of exactly this kind.
+:::
+
+<div class="lesson-tag"><span class="lt lab">Hands-on lab</span><span class="lm">20 min</span></div>
+
+## Rates objects {#rates-objects}
+
+In `matisseR`, a Lexis diagram is a **rates object**: a list whose two main parts are matrices with one row per age group and one column per period, `Events` and `Offset` (person-years).
+
+```{r}
+names(R)
+dim(R$Events)       # 50 single years of age x 29 calendar years
+R$Events[1:3, 1:4]  # the first cells: ages 35-37, years 1991-1994
+```
+
+`rates_uni()` gives a one-line summary, and `rates_long()` turns the matrices into a table with one row per cell, including the age, period and cohort midpoints:
+
+```{r}
+rates_uni(R)[, .(ages, periods, cell, events, person_years, crude_rate)]
+head(rates_long(R), 3)
+```
+
+The `cell` column reads *age width x period width*: `1x1` means single years of age and single calendar years.
+
+::: {.callout-tip title="Try it"}
+Open example 5 (breast cancer) and example 6 (lung cancer) with `matisse_example(5)` and `matisse_example(6)`. Compare their `crude_rate` in `rates_uni()`. Then draw `lexis_plot(rates_chunk(matisse_example(6), 5, 5))`. Where do you see the highest rates?
+:::
+
+<div class="lesson-tag"><span class="lt read">Reading + lab</span><span class="lm">25 min</span></div>
+
+## Prepare rates for modelling {#prepare-rates-for-modelling}
+
+The APC model needs **square cells** (age and period intervals of equal width) and **no zero counts**, because it works on log rates. Three functions prepare a rates object.
+
+### Combine cells with `rates_chunk()`
+
+`rates_chunk()` sums blocks of ages and periods. If the periods do not divide evenly, the leftover periods are dropped **from the start**, so the most recent data are kept:
+
+```{r}
+R55 <- rates_chunk(R, age_block = 5, per_block = 5)
+rates_uni(R55)[, .(ages, periods, cell, events)]
+```
+
+The 29 single years from 1991 to 2019 became five 5-year periods, 1995-1999 to 2015-2019. The first four years (1991 to 1994) did not fill a block and were dropped. The total number of events fell accordingly.
+
+### Fill zero cells with `rates_fill()`
+
+Small populations produce empty cells. Example 3 is a small population with many zeros:
+
+```{r}
+Z <- matisse_example(3)
+c(zero_cells_before = sum(Z$Events == 0),
+  zero_cells_after  = sum(rates_fill(Z)$Events == 0),
+  fill_value        = rates_fill(Z)$fill_value)
+```
+
+`rates_fill()` replaces zero or missing counts with a small positive value (at least 0.5) so that log rates exist. If you have many zeros, combining cells with `rates_chunk()` first is usually better than filling.
+
+### Interpolate ages with `rates_i5()`
+
+Registries often publish 5-year age groups. `rates_i5()` interpolates to single years of age; `"linear"` keeps the group totals, `"cubic"` gives smoother values:
+
+```{r}
+A5 <- rates_chunk(R, age_block = 5)       # 5-year ages, single years of period
+I1 <- rates_i5(A5, "linear")
+c(age_groups_before = nrow(A5$Events), single_years_after = nrow(I1$Events),
+  total_events_equal = sum(I1$Events) == sum(A5$Events))
+```
+
+<div class="lesson-tag"><span class="lt lab">Hands-on lab</span><span class="lm">25 min</span></div>
+
+## Bring your own data {#bring-your-own-data}
+
+There are two common ways to get your data into a rates object.
+
+**From an NCI Age Period Cohort Web Tool file.** If you already prepared an input matrix for the [NCI web tool](https://analysistools.cancer.gov/apc/) (for example from SEER*Stat or the CI5 Plus database), read it directly with `csv2rates()`. The package's example files use this format:
+
+```{r}
+file <- system.file("extdata", "syn01_melanoma_F_A.csv", package = "matisseR")
+R_csv <- csv2rates(file)
+rates_uni(R_csv)[, .(object, ages, periods, cell, events)]
+```
+
+Going the other way, `rates2csv(R, "my_rates.csv")` writes a rates object in the same format, so you can also run it in the web tool.
+
+**From a table of cases and person-years.** `rates_make()` takes a table with one row per age group and year: `age` (the 5-year group index, 1 = 0-4, 2 = 5-9, ..., 18 = 85+), `year`, `cases` and `py`. To practise, rebuild such a table from the example:
+
+```{r}
+tab <- rates_long(R)[, .(age = floor(age_lo / 5) + 1, year = floor(per_lo), events, offset)
+                     ][, .(cases = sum(events), py = sum(offset)), by = .(age, year)]
+head(tab[order(age, year)], 3)
+
+R_make <- rates_make(tab, age_groups = 8:17, fullname = "Rebuilt from a table")  # ages 35-39 to 80-84
+rates_uni(R_make)[, .(ages, periods, cell)]
+```
+
+The cells are `5x1`: 5-year age groups but single calendar years. Combine periods to make them square:
+
+```{r}
+rates_uni(rates_chunk(R_make, per_block = 5))[, .(ages, periods, cell)]
+```
+
+::: {.callout-important title="Check your own data before modelling"}
+Equal age and period widths, enough cases per cell (combine cells if many are empty), and consistent person-years across all cells. The [Resources](../resources.qmd) page links the slides on extracting SEER and CI5 Plus data.
+:::
+
+<div class="lesson-tag"><span class="lt quiz">Self-check</span><span class="lm">5 min</span></div>
+
+## Self-check {#self-check}
+
+::: {.quiz data-answer="2"}
+**A woman is aged 50 at the midpoint of the period 2000. Which birth cohort is she in?**
+
+1. 2050
+2. 1950
+3. 1900
+
+::: explain
+Cohort = period - age = 2000 - 50 = 1950. The diagonals of a Lexis diagram are birth cohorts.
+:::
+:::
+
+::: {.quiz data-answer="3"}
+**Why must zero counts be filled before you fit the APC model?**
+
+1. Zeros make the Lexis diagram non-square.
+2. The model needs person-years, not events.
+3. The model works on log rates, and the log of zero does not exist.
+
+::: explain
+The New APC model is fitted to log rates (by weighted least squares by default), so every cell needs a positive count. `rates_fill()` supplies a small positive value; combining cells with `rates_chunk()` first reduces the number of zeros.
+:::
+:::
+
+::: {.quiz data-answer="1"}
+**You run `rates_chunk(R, age_block = 5, per_block = 5)` on 29 single calendar years (1991 to 2019). What remains?**
+
+1. Five periods; the earliest four years (1991-1994) are dropped.
+2. Six periods; the latest four years are dropped.
+3. Five periods; the latest four years (2016-2019) are dropped.
+
+::: explain
+29 = 5 x 5 + 4. Leftover years are dropped from the start, so the most recent periods are kept: 1995-1999 up to 2015-2019.
+:::
+:::
+
+<div class="complete" data-module="m1"><p><strong>Finished this module?</strong> Mark it complete to track your progress.</p><button type="button" aria-pressed="false">Mark module complete</button></div>

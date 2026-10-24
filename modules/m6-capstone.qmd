@@ -1,0 +1,148 @@
+---
+title: "Module 6 · Capstone: your own analysis"
+subtitle: "Plan, run and document a reproducible APC analysis of your data"
+---
+
+```{r}
+#| include: false
+source("../assets/setup.R")
+```
+
+<p class="eyebrow">MODULE 6 OF 6 · ABOUT 2 HOURS · PROJECT</p>
+
+<div class="objectives"><h4>By the end of this module you will have</h4>
+<ul>
+<li>written a one-paragraph brief that links your question to the right method;</li>
+<li>prepared your data as a rates object and checked it;</li>
+<li>run a short analysis script from data to estimable functions;</li>
+<li>organized the project so that someone else can rerun it.</li>
+</ul></div>
+
+<ul class="lesson-index">
+<li><a href="#plan-your-question">6.1 Plan your question</a></li>
+<li><a href="#prepare-your-data">6.2 Prepare your data</a></li>
+<li><a href="#analyse">6.3 Analyse</a></li>
+<li><a href="#make-it-reproducible">6.4 Make it reproducible</a></li>
+<li><a href="#self-assessment">Self-assessment</a></li>
+</ul>
+
+<div class="lesson-tag"><span class="lt read">Reading</span><span class="lm">15 min</span></div>
+
+## Plan your question {#plan-your-question}
+
+Write a brief of one paragraph: *which population, which outcome, which ages and years, and what you want to learn.* Then pick the module that fits:
+
+| Your question | Method | Module |
+|---|---|---|
+| Are rates rising or falling, and at which ages? | New APC model: net drift, local drifts | [2](m2-new-apc-model.qmd) |
+| Is the pattern the same in women and men, or in two countries? | CAPRICORN | [3](m3-capricorn.qmd) |
+| Are younger generations at higher risk than their parents' generation? | Generation means and proxy-parent contrasts | [4](m4-generations-shares.qmd) |
+| What share of deaths is due to this cause, by cohort? | `fcp_share()` | [4](m4-generations-shares.qmd) |
+
+::: {.callout-tip title="Try it"}
+Write your brief now. Example: "Cervical cancer incidence in women aged 20 to 84 in registry X, 1998 to 2017. Are rates changing, and does the pattern differ between cohorts born before and after 1960?"
+:::
+
+<div class="lesson-tag"><span class="lt lab">Hands-on lab</span><span class="lm">30 min</span></div>
+
+## Prepare your data {#prepare-your-data}
+
+Follow Module 1. In short:
+
+1. **Get counts and person-years** by age and year from your registry or from [SEER*Stat](https://seer.cancer.gov/seerstat/) or [CI5 Plus](https://ci5.iarc.fr/). The [Resources](../resources.qmd) page links slides that show how.
+2. **Build a rates object**: `csv2rates()` for a file in the NCI web tool format, or `rates_make()` for a table with `age`, `year`, `cases` and `py`.
+3. **Make the cells square** with `rates_chunk()` (for example 5-year ages by 5-year periods).
+4. **Check** `rates_uni(R)`. How many cases are there? Are many cells empty? If so, use wider cells before using `rates_fill()`.
+
+Keep your raw data files exactly as you received them. Do all cleaning in scripts.
+
+<div class="lesson-tag"><span class="lt lab">Hands-on lab</span><span class="lm">45 min</span></div>
+
+## Analyse {#analyse}
+
+This script is the shortest useful analysis. It runs here on example 5 (synthetic breast cancer); replace the first line with your own data:
+
+```{r}
+R  <- matisse_example(5)                               # your data: csv2rates("my_rates.csv")
+R5 <- rates_fill(rates_chunk(R, age_block = 5, per_block = 5))
+M  <- apc_fit(R5)                                      # New APC model
+E  <- apc_efs(M)                                       # LAC, CAC, FTT, FCP and local drifts
+
+round(M$net_drift, 2)                                  # percent per year
+f  <- apc_fcp(M, age = 60)                             # cohort pattern at a chosen age
+fcp_generations(f)$table[, .(generation, n, mean = round(mean, 1))]
+```
+
+From here, add what your brief needs:
+
+- **Compare groups:** build a named list of rates objects and call `capricorn()` (Module 3).
+- **Contrast generations:** `fcp_contrast(f)` and `ld_onset(M)` (Module 4).
+- **Save tables**, not only figures: `fwrite(E, "output/apc/estimable_functions.csv")`.
+
+<div class="lesson-tag"><span class="lt read">Reading</span><span class="lm">20 min</span></div>
+
+## Make it reproducible {#make-it-reproducible}
+
+The Europe case study follows a set of habits that make their results easy to check and to reuse. Adopt the same habits in your project:
+
+- **One README** with the purpose, the data sources and the **run order**.
+- **Numbered scripts** that each do one step and write to their own folder.
+- **Never edit raw data.** Read it, and write derived data elsewhere.
+- **A data dictionary in every output folder**: a small CSV that lists each file and variable with a description, unit and provenance.
+- **Record your software:** a script that writes the R and package versions to a text file.
+- **Rerun without surprises:** relative paths, and `set.seed()` wherever random numbers are used.
+- **Read numbers from outputs**, not from memory, when you write a report.
+
+```
+my-apc-project/
+|-- README.md                  purpose, data sources, run order
+|-- code/
+|   |-- 00_session.R           writes output/session_info.txt
+|   |-- 01_rates.R             raw files -> data/derived/rates.rds
+|   |-- 02_apc.R               apc_fit, apc_efs -> output/apc/
+|   `-- 03_figures.R           output/apc/*.csv -> figures
+|-- data/
+|   |-- raw/                   as received, never edited
+|   `-- derived/
+`-- output/
+    `-- apc/
+        |-- estimable_functions.csv
+        `-- dictionary.csv
+```
+
+A dictionary can be as simple as this:
+
+| file | variable | description | unit |
+|---|---|---|---|
+| estimable_functions.csv | ef | estimable function: lac, cac, ftt, fcp or ld | |
+| estimable_functions.csv | x | age, period or cohort midpoint | years |
+| estimable_functions.csv | value | estimate | rate per 100,000, or % per year for ld |
+| estimable_functions.csv | lo, hi | 95% confidence limits | as `value` |
+
+<div class="lesson-tag"><span class="lt quiz">Self-assessment</span><span class="lm">10 min</span></div>
+
+## Self-assessment {#self-assessment}
+
+Check your project against this list:
+
+- [ ] My brief names the population, outcome, ages, years and question.
+- [ ] The rates object has square cells, and I know how many zero cells I filled.
+- [ ] I report the net drift with its interval and name the reference age I used for any cohort pattern.
+- [ ] If I compared groups, I looked at the global tests **and** AICc, and I used `overdispersion = TRUE` for real counts.
+- [ ] Anyone can rerun my scripts from the README, in order, and get the same tables.
+
+::: {.quiz data-answer="3"}
+**Which file should every output folder of your project contain?**
+
+1. The raw data.
+2. A copy of the R installer.
+3. A data dictionary describing each file and variable.
+
+::: explain
+A dictionary makes outputs findable and reusable: it records what each variable means, its unit, and which script wrote it. Raw data stay in their own folder and are never edited.
+:::
+:::
+
+Questions about your project? Write to <a href="mailto:matisse.apc@gmail.com">matisse.apc@gmail.com</a>. When you are ready, revisit the [Europe case study](../cases/eu-generations.qmd) to see a project organized in this way.
+
+<div class="complete" data-module="m6"><p><strong>Finished the course?</strong> Mark this module complete.</p><button type="button" aria-pressed="false">Mark module complete</button></div>

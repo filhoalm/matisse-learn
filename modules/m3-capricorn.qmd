@@ -1,0 +1,197 @@
+---
+title: "Module 3 · Comparing populations with CAPRICORN"
+subtitle: "Test whether two or more groups share the same age, period and cohort patterns"
+---
+
+```{r}
+#| include: false
+source("../assets/setup.R")
+source("../assets/plot_ef.R")
+```
+
+<p class="eyebrow">MODULE 3 OF 6 · ABOUT 2 HOURS · INTERMEDIATE</p>
+
+<div class="objectives"><h4>By the end of this module you will be able to</h4>
+<ul>
+<li>explain what "proportional" means for rates from two or more groups;</li>
+<li>fit and test the five CAPRICORN models with <code>capricorn()</code>;</li>
+<li>choose a model with the global tests and AICc;</li>
+<li>extract estimable functions and rate ratios by group with <code>cap_ef()</code>.</li>
+</ul></div>
+
+<ul class="lesson-index">
+<li><a href="#why-compare-and-what-proportional-means">3.1 What "proportional" means</a></li>
+<li><a href="#fit-and-test-the-models">3.2 Fit and test the models</a></li>
+<li><a href="#compare-estimable-functions">3.3 Compare estimable functions</a></li>
+<li><a href="#read-a-real-figure">3.4 Read a real figure</a></li>
+<li><a href="#self-check">Self-check</a></li>
+</ul>
+
+<div class="lesson-tag"><span class="lt read">Reading</span><span class="lm">20 min</span></div>
+
+## Why compare, and what "proportional" means {#why-compare-and-what-proportional-means}
+
+You rarely care about one Lexis diagram alone. You want to compare **women and men**, **two countries**, or **incidence and mortality**. You could fit a separate APC model to each and compare the curves by eye, but that wastes power and has no formal test.
+
+**CAPRICORN** (comparative APC analysis; [Rosenberg and colleagues, BMC Med Res Methodol 2023](https://link.springer.com/article/10.1186/s12874-023-02039-8)) fits all groups *together* and asks a precise question: **how are their rates related?** Take the ratio of the rates of a *target* group to a *reference* group in every cell of the Lexis diagram. Five situations are possible:
+
+| Model | The ratio of rates... | Groups differ in... | Rates are parallel along... |
+|---|---|---|---|
+| **PH-A** | is constant | their overall level only | the whole Lexis diagram |
+| **PH-L** | depends on birth cohort only | their cohort pattern | cohorts (diagonals) |
+| **PH-T** | depends on age only | their age pattern | time, within each age |
+| **PH-X** | depends on calendar period only | their period trend | cross-sectional age curves |
+| **NPH** | depends on age, period and cohort | everything | nothing |
+
+"PH" stands for proportional: the groups' rates are proportional in some sense. **NPH** (non-proportional) is the unrestricted model, equivalent to separate APC fits. Each PH model is NPH with some blocks of coefficients forced equal across groups. A **likelihood-ratio test** compares each PH model with NPH. A small p-value means the constraint is too strict: that kind of proportionality does **not** hold. **AICc** ranks all five models by fit and parsimony.
+
+Why bother? When a proportional model holds, you describe the comparison with one simple pattern, and your estimates are **more precise** because they borrow strength across groups. When none holds, that is itself a finding: the groups truly differ in several ways.
+
+<div class="lesson-tag"><span class="lt lab">Hands-on lab</span><span class="lm">35 min</span></div>
+
+## Fit and test the models {#fit-and-test-the-models}
+
+The synthetic examples were built so that the answer is known. Examples 1 to 4 are one disease in four populations, and the index says which comparison with population A (example 1) should satisfy which model:
+
+```{r}
+matisse_example()[number %in% 1:4, .(number, population, design)]
+```
+
+Compare population B (example 2) with A. Give `capricorn()` a **named list** of rates objects that share the same Lexis diagram. **The last one is the reference.**
+
+```{r}
+Rs <- lapply(matisse_example(c(2, 1)), function(R) rates_fill(rates_chunk(R, 5, 5)))
+names(Rs) <- c("B", "A")
+S <- capricorn(Rs)
+S$best
+```
+
+The global tests compare each proportional model with NPH:
+
+```{r}
+S$tests$global[, .(test, stat = round(stat, 1), df, p = pf(p))]
+```
+
+Read the `p` column as *the evidence against that model*. Here PH-L, PH-T and PH-A are rejected, and PH-X is not. That fits the design: population B differs from A in its **period trend**, so the ratio depends on period only. AICc agrees:
+
+```{r}
+S$aic[, .(model, df, AICc = round(AICc, 1), delta = round(delta, 1), rank)]
+```
+
+`delta` is the AICc minus the smallest AICc, so the best model has `delta = 0`.
+
+Now run the other two designed comparisons in one go. The `best` model should match the design:
+
+```{r}
+runs <- rbindlist(lapply(list(c(2, 1), c(4, 1), c(3, 1)), function(k) {
+  Rs <- lapply(matisse_example(k), function(R) rates_fill(rates_chunk(R, 5, 5)))
+  names(Rs) <- LETTERS[k]
+  S <- capricorn(Rs)
+  g <- S$tests$global
+  data.table(comparison = paste(names(Rs), collapse = " vs "), best = S$best,
+             `p PH-L` = pf(g[test == "PHL", p]), `p PH-T` = pf(g[test == "PHT", p]),
+             `p PH-X` = pf(g[test == "PHX", p]), `p PH-A` = pf(g[test == "PHA", p]))
+}))
+runs
+```
+
+- **B vs A** (period trend differs): only PH-X is not rejected.
+- **D vs A** (steeper cohort trend): only PH-L is not rejected.
+- **C vs A** (rates 1.3 times those of A, in a smaller population): *none* is rejected, because a constant ratio is a special case of every other proportional model. When several models are not rejected, AICc picks the simplest adequate one: PH-A.
+
+::: {.callout-important title="Real data are overdispersed"}
+The tests above assume Poisson variation, which is right for the synthetic data. Real counts usually vary more than Poisson. Use `capricorn(Rs, overdispersion = TRUE)` to scale the tests and AICc by the dispersion of the NPH fit (quasi-Poisson tests and QAICc). The Europe case study figure below used a dispersion of 3.8.
+:::
+
+<div class="lesson-tag"><span class="lt lab">Hands-on lab</span><span class="lm">25 min</span></div>
+
+## Compare estimable functions {#compare-estimable-functions}
+
+`cap_ef()` returns the estimable functions of every group under any of the models, plus the **ratio of each group to the reference**. It has the same `comp` codes as `apc_ef()`. Here is the cohort pattern ratio of B to A under the unrestricted model (NPH) and under the model that holds (PH-X):
+
+```{r}
+#| label: fig-ratio
+#| fig-width: 7
+#| fig-height: 3.6
+#| fig-cap: "Ratio of fitted cohort patterns, population B vs A, under NPH and under PH-X (95% confidence bands, logarithmic axis), for the cohorts observed near the reference age. The PH-X band is much narrower."
+Rs <- lapply(matisse_example(c(2, 1)), function(R) rates_fill(rates_chunk(R, 5, 5)))
+names(Rs) <- c("B", "A")
+S <- capricorn(Rs)
+r <- rbindlist(lapply(c("NPH", "PHX"), function(m) cap_ef(S, "fcp", model = m)[type == "ratio"]))
+r <- r[x %in% observed_cohorts(Rs[[1]], unique(r$ref))]   # observed cohorts only; no projection
+ggplot(r, aes(x, value, colour = model, fill = model)) +
+  geom_hline(yintercept = 1, linetype = 2, linewidth = 0.3) +
+  geom_ribbon(aes(ymin = lo, ymax = hi), alpha = 0.15, colour = NA) +
+  geom_line(linewidth = 0.7) +
+  scale_y_log10() +
+  scale_colour_manual(values = c(NPH = "#0B2E4F", PHX = "#7A2E6E")) +
+  scale_fill_manual(values = c(NPH = "#0B2E4F", PHX = "#7A2E6E")) +
+  labs(x = "Birth cohort", y = "Rate ratio, B vs A (log scale)")
+```
+
+When the true structure is proportional, the restricted model recovers the same pattern with a much narrower interval. That gain in precision is the practical reason to look for a proportional model. Check the width yourself:
+
+```{r}
+r[, .(median_ci_width_on_log_scale = round(median(log(hi) - log(lo)), 2)), by = model]
+```
+
+::: {.callout-tip title="Try it"}
+Repeat the comparison for example 4 vs 1, where PH-L is the best model. Extract `cap_ef(S, "fcp", model = "PHL")[type == "ratio"]` and plot it as above. Under PH-L the ratio depends on birth cohort only. Does the ratio of cohort patterns stay constant, or change from cohort to cohort?
+:::
+
+<div class="lesson-tag"><span class="lt case">Case study</span><span class="lm">20 min</span></div>
+
+## Read a real figure {#read-a-real-figure}
+
+The "anatomy" of CAPRICORN from the Europe case study compares women with men for rectal cancer incidence in England. Men are the reference group.
+
+![](../images/cases/eu_anatomy_capricorn.png){fig-alt="Panels: observed female to male rate ratio in each Lexis cell; estimable functions by sex; likelihood-ratio tests of the proportional models; model choice by QAICc." width="85%"}
+
+*Preliminary figure from the [Europe case study](../cases/eu-generations.qmd) (work in progress). Faded or dashed parts are projected and are not covered in this course. (A) Observed female:male rate ratio in each 5 x 5 cell. (B) Estimable functions by sex under NPH. (C) Quasi-Poisson likelihood-ratio tests of each proportional model against NPH (dispersion 3.80). (D) QAICc of each model minus the smallest.*
+
+::: {.callout-tip title="Try it"}
+In panel C, which proportional models does the test reject at the usual 5% level? In panel D, which model has the smallest QAICc? Do the two agree?
+:::
+
+
+<div class="lesson-tag"><span class="lt quiz">Self-check</span><span class="lm">5 min</span></div>
+
+## Self-check {#self-check}
+
+::: {.quiz data-answer="1"}
+**In CAPRICORN, what does the PH-A model assume?**
+
+1. The ratio of rates between groups is constant everywhere on the Lexis diagram.
+2. The ratio depends on birth cohort only.
+3. Each group has its own age, period and cohort effects.
+
+::: explain
+PH-A (whole Lexis diagrams parallel) forces everything except the overall level to be equal. The second option describes PH-L and the third describes NPH.
+:::
+:::
+
+::: {.quiz data-answer="3"}
+**The global test of PH-L against NPH gives p = 0.0002. What does that mean?**
+
+1. PH-L is the best model.
+2. The groups have identical rates.
+3. There is strong evidence that the ratio of rates is not a function of birth cohort alone.
+
+::: explain
+The test compares the restricted model with NPH. A small p-value means the restriction does not fit, so proportionality along cohorts does not hold.
+:::
+:::
+
+::: {.quiz data-answer="2"}
+**Why are the confidence bands of the ratio narrower under PH-X than under NPH when PH-X holds?**
+
+1. PH-X changes the data.
+2. The restricted model has fewer free parameters and borrows strength across the groups.
+3. PH-X ignores the age effect.
+
+::: explain
+Forcing blocks of coefficients to be equal across groups reduces the number of parameters estimated, so each is estimated more precisely. This only helps if the constraint is true, which is why you test it first.
+:::
+:::
+
+<div class="complete" data-module="m3"><p><strong>Finished this module?</strong> Mark it complete to track your progress.</p><button type="button" aria-pressed="false">Mark module complete</button></div>

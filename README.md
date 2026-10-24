@@ -1,27 +1,37 @@
-# MATISSE
+# matisseR Learn
 
-A MATLAB Toolbox for vItal rateS SurveillancE.
+A self-paced course on age-period-cohort (APC) analysis of vital rates in R, built around [`matisseR`](https://github.com/filhoalm/matisseR),
+an R toolbox for disease surveillance, with two real case studies. The MATLAB toolbox
+MATISSE (by Philip S. Rosenberg), of which `matisseR` is a port, is a secondary section.
 
-MATISSE implements the statistical methods described in ["Advances in statistical methods for cancer surveillance research: an age-period-cohort perspective"](https://www.frontiersin.org/journals/oncology/articles/10.3389/fonc.2023.1332429/full). It packages age-period-cohort modeling, joinpoint
-regression, comparative APC analysis, Lexis diagram smoothing, and semiparametric
-APC analysis behind a common object-oriented interface (`rates`, `apc`, `epiphany`,
-`capricorn`, `joinpoint`, `sift`, `sage`, ...).
-
-Toolbox design and code: Philip S. Rosenberg.
+Live site: <https://filhoalm.github.io/matisse-learn/>
 
 ## Contents
 
-- [`index.qmd`](index.qmd) / [`index.html`](index.html) — project landing page (Quarto)
-- [`images/`](images) — figures used on the landing page, including real MATISSE output
-- [`downloads/`](downloads) — the toolbox (`MATISSE_toolbox.zip`), the `.mlx` user's guide,
-  companion slide decks, and the reference papers
+| Path | Contents |
+|---|---|
+| `index.qmd` | Course landing page: syllabus, case studies, team, FAQ |
+| `modules/` | Modules 0 to 7 (readings, runnable R code, self-checks) |
+| `cases/` | The two case studies (figures from work in progress) |
+| `resources.qmd`, `workshop.qmd` | Function reference, datasets, slides, papers, glossary; live workshop |
+| `matlab/` | The MATLAB toolbox section |
+| `assets/` | Shared setup code and page scripts |
+| `data/` | The eight synthetic example datasets (CSV) |
+| `downloads/` | MATLAB toolbox, live scripts, slides and papers |
+| `images/` | Figures |
+| `docs/` | The rendered site (what GitHub Pages serves) |
 
-## Rendering the site
+## Build
+
+Requires R 4.1+ with `matisseR`, `data.table`, `ggplot2`, `patchwork`, `scales`, `knitr`, `rmarkdown`, and Quarto 1.4+.
 
 ```bash
-quarto render index.qmd
+quarto render
 ```
+
+The site is written to `docs/`. R output is cached in `_freeze/`, so unchanged pages are not re-run.
+Set GitHub Pages to deploy from the `main` branch, `/docs` folder.
 
 ## Status
 
-Working draft — first public release in preparation.
+Working draft. Video lessons are not recorded yet.

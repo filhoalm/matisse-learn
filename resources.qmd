@@ -1,68 +1,153 @@
 ---
 title: "Resources"
-subtitle: "Download live scripts, slides, and reference papers"
-date: today
-date-modified: 2026-09-28
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    theme: cosmo
-    css: styles.css
-    include-after-body: link-targets.html
-    title-block-banner: "#0B2E4F"
-    title-block-banner-color: "#FFFFFF"
-    fig-align: center
-    code-tools: false
-    smooth-scroll: true
-    embed-resources: true
+subtitle: "Install, function reference, datasets, slides, papers and glossary"
 ---
 
-```{=html}
-<nav class="course-nav course-global-nav" aria-label="Course navigation"><a href="index.html">Home</a><a href="getting-started.html">MATLAB guide</a><a href="toolbox-guide.html">Toolbox guide</a><a href="examples.html">Examples</a><a href="resources.html" aria-current="page">Resources</a><a href="course-information.html">Short course</a></nav><p class="course-back"><a href="index.html">← Back to home</a></p>
+```{r}
+#| include: false
+source("assets/setup.R")
 ```
 
-## Downloads {#downloads}
+<ul class="lesson-index">
+<li><a href="#install">Install</a></li>
+<li><a href="#functions">Function reference</a></li>
+<li><a href="#datasets">Example datasets</a></li>
+<li><a href="#slides">Slides and data preparation</a></li>
+<li><a href="#papers">Method papers</a></li>
+<li><a href="#glossary">Glossary</a></li>
+<li><a href="#cite">How to cite</a></li>
+</ul>
 
-Start with `MATISSE_toolbox.zip` and the Overview live script. Next, open The Lexis Diagram live script. The user's guide is a growing set of MATLAB live scripts (`.mlx`) with companion PowerPoint slides. Use the slides to review the concepts and the live scripts to run the code. The available files are listed below.
+## Install {#install}
 
-| File                                                                                                 | Description                                                                                                                                       | Size   |
-|------------------------|------------------------|------------------------|
-| [MATISSE_toolbox.zip](downloads/MATISSE_toolbox.zip)                                                 | The toolbox itself: all classes (`@apc`, `@rates`, `@sage`, …), graphics and statistics functions, and the 16 example SEER datasets               | 0.9 MB |
-| [MATISSE_1_Overview.mlx](downloads/MATISSE_1_Overview.mlx)                                           | User's guide 1: design philosophy, object model, system map, help system, graphics options                                                        | 1.2 MB |
-| [MATISSE_2_The_Lexis_Diagram.mlx](downloads/MATISSE_2_The_Lexis_Diagram.mlx)                         | User's guide 2: the `rates` class, `pcolor`/`surf`/`lexis` methods, comparing multiple Lexis diagrams                                             | 2.6 MB |
-| [Statistical_Methods_in_CSR.pptx](downloads/Statistical_Methods_in_CSR.pptx)                         | Course slides: statistical methods in cancer surveillance research                                                                                | 1.0 MB |
-| [The_Lexis_Diagram.pptx](downloads/The_Lexis_Diagram.pptx)                                           | Course slides: the Lexis diagram                                                                                                                  | 3.1 MB |
-| [SEER_CI5plus_to_APC_WebTool.pptx](downloads/SEER_CI5plus_to_APC_WebTool.pptx)                       | Course slides: from SEER/CI5+ data to the APC web tool                                                                                            | 1.8 MB |
-| [Filho_Rosenberg_2024_FrontOncol.pdf](downloads/Filho_Rosenberg_2024_FrontOncol.pdf) | Filho & Rosenberg, *Advances in statistical methods for cancer surveillance research: an age-period-cohort perspective*, Front Oncol 2024 | 4.4 MB |
-| [Rosenberg_2023_BMCMedResMethodol.pdf](downloads/Rosenberg_2023_BMCMedResMethodol.pdf)               | Comparative age-period-cohort analysis reference (BMC Med Res Methodol 2023)                                                                      | 6.2 MB |
+Requires R 4.1 or later. `matisseR` depends only on `data.table`; the other packages are for plotting.
 
-## Related methods and publications {#related-methods-and-publications}
-
--   [Age Period Cohort Analysis Web Tool](https://analysistools.cancer.gov/apc/) (NCI) — [about the tool](https://dceg.cancer.gov/tools/analysis/apc) · [description](https://aacrjournals.org/cebp/article/23/11/2296/14669/A-Web-Tool-for-Age-Period-Cohort-Analysis-of)
--   [The new age-period-cohort model](https://journals.sagepub.com/doi/10.1177/0962280218801121)
--   [Comparative age-period-cohort analysis](https://link.springer.com/article/10.1186/s12874-023-02039-8)
--   [Smoothing methods for Lexis diagrams](https://journals.sagepub.com/doi/10.1177/09622802231192950)
--   [Semiparametric age-period-cohort analysis](https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2819747)
-
-## FAQ {#faq}
-
-**Do I need to buy MATLAB to use MATISSE?**
-You can use MATLAB Online in your browser. Sign in with a MathWorks account and check the current access terms. Follow [Getting started with MATLAB Online](getting-started.html#getting-started-with-matlab-online) to set up the toolbox. You need a MATLAB license to use a local copy.
-
-**Do I need to know MATLAB already?**
-Some familiarity helps. Start with the Overview live script to learn how the toolbox works. Run one section at a time and inspect the result. Use [Getting help](toolbox-guide.html#getting-help) when a command is unfamiliar.
-
-**Is MATISSE peer reviewed / published?**
-The methods are described in Filho & Rosenberg, *Advances in statistical methods for cancer surveillance research: an age-period-cohort perspective* (Front Oncol, 2024). Download the paper from [Downloads](#downloads). For individual methods, such as SAGE and comparative APC analysis, open [Related methods and publications](#related-methods-and-publications).
-
-**How do I ask a question or get help?**
-Send us an email at [matisse.apc@gmail.com](mailto:matisse.apc@gmail.com). For quick answers about commands, use the toolbox's built-in help. See [Getting help](toolbox-guide.html#getting-help) for the commands.
-
-**Will the live sessions be recorded?**
-Yes. Recordings will be linked here when they are available.
-
-
-```{=html}
-<footer class="course-page-footer"><p class="course-back"><a href="index.html">← Back to home</a></p></footer>
+```r
+install.packages(c("data.table", "ggplot2", "patchwork", "scales", "remotes"))
+remotes::install_github("filhoalm/matisseR")
 ```
+
+The package source, issue tracker and README are at [github.com/filhoalm/matisseR](https://github.com/filhoalm/matisseR). Every function has a help page: for example `?apc_fit`.
+
+## Function reference {#functions}
+
+The main functions, by the module that teaches them.
+
+| Function | What it does | Module |
+|---|---|---|
+| `matisse_example()` | Index and data of the eight synthetic example datasets | [0](modules/m0-welcome.qmd), [1](modules/m1-lexis-rates.qmd) |
+| `csv2rates()`, `rates2csv()` | Read and write the NCI Age Period Cohort Web Tool CSV format | [1](modules/m1-lexis-rates.qmd) |
+| `rates_make()` | Build a rates object from a table of cases and person-years | [1](modules/m1-lexis-rates.qmd) |
+| `rates_long()`, `rates_uni()` | A table with one row per Lexis cell; a one-line summary | [1](modules/m1-lexis-rates.qmd) |
+| `rates_chunk()` | Combine ages and periods into larger cells | [1](modules/m1-lexis-rates.qmd) |
+| `rates_fill()` | Replace zero or missing events with a small positive value | [1](modules/m1-lexis-rates.qmd) |
+| `rates_i5()`, `pchip()` | Interpolate 5-year age groups to single years; shape-preserving interpolation | [1](modules/m1-lexis-rates.qmd) |
+| `lexis_plot()` | Lexis diagram: age by period beside age by cohort | [1](modules/m1-lexis-rates.qmd) |
+| `apc_design()` | The age-period-cohort design matrix | [2](modules/m2-new-apc-model.qmd) |
+| `apc_fit()` | Fit the New APC model (weighted least squares or Poisson) | [2](modules/m2-new-apc-model.qmd) |
+| `apc_ef()`, `apc_efs()` | One or several estimable functions with 95% confidence limits | [2](modules/m2-new-apc-model.qmd) |
+| `apc_ref()`, `apc_scale()`, `apc_contrast()`, `apc_ef_vcov()` | Reference cells, scales, contrasts and covariance of an estimable function | [2](modules/m2-new-apc-model.qmd) |
+| `capricorn()` | Comparative APC analysis: five models, tests and AICc | [3](modules/m3-capricorn.qmd) |
+| `cap_ef()` | Estimable functions and rate ratios by group | [3](modules/m3-capricorn.qmd) |
+| `cap_map()`, `cap_fit()`, `cap_blocks()` | Building blocks of the comparative models | [3](modules/m3-capricorn.qmd) |
+| `social_generations()`, `generation_contrasts()` | Generations, proxy parents and the contrasts between them | [4](modules/m4-generations-shares.qmd) |
+| `apc_fcp()` | Fitted cohort pattern at any reference age | [4](modules/m4-generations-shares.qmd) |
+| `fcp_generations()`, `fcp_contrast()` | Mean fitted rate by generation; rate ratios between generations | [4](modules/m4-generations-shares.qmd) |
+| `fcp_sum()` | Sum cohort patterns (for example, sites combined) | [4](modules/m4-generations-shares.qmd) |
+| `ld_onset()` | Local drifts of early- and late-onset ages | [4](modules/m4-generations-shares.qmd) |
+| `pool_rr()` | Random-effects pooling of rate ratios | [4](modules/m4-generations-shares.qmd) |
+| `rates_share()`, `fcp_share()` | A cause as a share of all-cause events; fitted cohort share | [4](modules/m4-generations-shares.qmd) |
+
+The generation and share functions go beyond the MATLAB toolbox. See [Module 5](modules/m5-matlab-methods.qmd) for the MATLAB methods that are not yet in R.
+
+## Example datasets {#datasets}
+
+Eight synthetic Lexis diagrams: single years of age 35 to 84 by calendar years 1991 to 2019, with Poisson counts drawn from known age-period-cohort surfaces shaped like common cancer patterns. They are **not registry data**, and they are free to use under the package's MIT license. In R, call `matisse_example(i)`; here are the CSV files (NCI web tool format) for any other software.
+
+```{r}
+#| echo: false
+#| results: asis
+idx <- matisse_example()
+tab <- idx[, .(Dataset = sprintf("[%s](data/%s)", file, file), Site = site, Sex = sex, Population = population,
+               Cases = format(cases, big.mark = ","), `Zero cells` = zero_cells,
+               `True net drift (%/yr)` = fifelse(is.na(net_drift), "-", format(round(net_drift, 2), nsmall = 2)),
+               Design = design)]
+cat(knitr::kable(tab, format = "pipe"), sep = "\n")
+```
+
+## Slides and data preparation {#slides}
+
+Course slides, and the steps to prepare registry data for the NCI web tool (which `csv2rates()` reads directly).
+
+| File | Description | Size |
+|---|---|---|
+| [SEER_CI5plus_to_APC_WebTool.pptx](downloads/SEER_CI5plus_to_APC_WebTool.pptx) | From SEER\*Stat or the CI5 Plus database to the APC input matrix, and the rules the web tool enforces | 1.8 MB |
+| [Statistical_Methods_in_CSR.pptx](downloads/Statistical_Methods_in_CSR.pptx) | Statistical methods in cancer surveillance research: why these methods are needed | 1.0 MB |
+| [The_Lexis_Diagram.pptx](downloads/The_Lexis_Diagram.pptx) | The Lexis diagram, its axes, and comparing several diagrams | 3.1 MB |
+
+The [NCI Age Period Cohort Analysis Web Tool](https://analysistools.cancer.gov/apc/) runs the standard analysis in a browser. Its rules include equal age and period interval widths (5-year ages need 5-year periods) and no zero count or population cells.
+
+## Method papers {#papers}
+
+- [Advances in statistical methods for cancer surveillance research: an age-period-cohort perspective](https://www.frontiersin.org/journals/oncology/articles/10.3389/fonc.2023.1332429/full) (Front Oncol 2024; [PDF](downloads/Filho_Rosenberg_2024_FrontOncol.pdf)). The overview of the methods.
+- [The new age-period-cohort model](https://journals.sagepub.com/doi/10.1177/0962280218801121) (Stat Methods Med Res). Module 2.
+- [Comparative age-period-cohort analysis](https://link.springer.com/article/10.1186/s12874-023-02039-8) (BMC Med Res Methodol 2023; [PDF](downloads/Rosenberg_2023_BMCMedResMethodol.pdf)). CAPRICORN and EPIPHANY; Module 3.
+- [Cancer incidence trends in successive social generations in the US](https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2819747) (JAMA Netw Open 2024). Generations, proxy parents and SAGE; Module 4.
+- [Smoothing methods for Lexis diagrams](https://journals.sagepub.com/doi/10.1177/09622802231192950). SIFT; Module 5.
+- [A web tool for age-period-cohort analysis of cancer incidence and mortality rates](https://aacrjournals.org/cebp/article/23/11/2296/14669/A-Web-Tool-for-Age-Period-Cohort-Analysis-of) (Cancer Epidemiol Biomarkers Prev 2014). The NCI web tool.
+
+## Glossary {#glossary}
+
+**Age-period-cohort (APC) analysis**
+: Statistical analysis of rates that separates the effects of age, calendar period and birth cohort.
+
+**Birth cohort**
+: People born in the same years. In a Lexis diagram, cohort = period - age.
+
+**CAPRICORN**
+: Comparative APC analysis: fits several groups together and tests whether their rates are proportional by age, period or cohort.
+
+**Estimable function (EF)**
+: A curve built from the model that does not depend on how the unidentifiable linear trend is assigned: LAC, CAC, FTT, FCP and local drifts.
+
+**Fitted cohort pattern (FCP)**
+: The model's rate at a reference age for each birth cohort.
+
+**Fitted temporal trend (FTT)**
+: The model's rate at a reference age for each calendar period.
+
+**Lexis diagram**
+: A grid of age by calendar period, holding events and person-years in each cell.
+
+**Local drift (LD)**
+: The annual percent change in the rate at each age.
+
+**Net drift**
+: The overall annual percent change in rates; the linear trend that cannot be assigned to period or cohort alone.
+
+**Overdispersion**
+: Variation in counts beyond what the Poisson distribution allows. Real counts usually show it; `capricorn(overdispersion = TRUE)` allows for it.
+
+**Person-years (offset)**
+: The population time at risk in a cell; the denominator of a rate.
+
+**Proxy parents**
+: The cohorts born 20 to 29 years before a generation's first and last birth years.
+
+**Rates object**
+: The `matisseR` representation of a Lexis diagram: matrices of events and person-years by age group and period.
+
+**Social generation**
+: A broad group of birth cohorts, such as the Baby Boomers (1946 to 1964).
+
+## How to cite {#cite}
+
+If you use the methods, cite the overview paper and the paper for the method you used:
+
+- Filho A, Rosenberg PS. Advances in statistical methods for cancer surveillance research: an age-period-cohort perspective. *Front Oncol* 2024;13:1332429. [doi:10.3389/fonc.2023.1332429](https://doi.org/10.3389/fonc.2023.1332429)
+- Comparative APC (CAPRICORN): Rosenberg PS et al. *BMC Med Res Methodol* 2023 (PMID 37853346).
+- Social generations: Rosenberg PS, Filho A. *JAMA Netw Open* 2024. [doi:10.1001/jamanetworkopen.2024.15731](https://doi.org/10.1001/jamanetworkopen.2024.15731)
+
+To cite the software: *matisseR: an R port of the MATISSE toolbox, version 0.1.0.* [github.com/filhoalm/matisseR](https://github.com/filhoalm/matisseR)
+
+Questions? Write to <a href="mailto:matisse.apc@gmail.com">matisse.apc@gmail.com</a>.

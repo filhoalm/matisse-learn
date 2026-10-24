@@ -1,5 +1,8 @@
 .quarto/
-/.quarto/
-*_files/
+.Rhistory
 .DS_Store
 Thumbs.db
+*.mp4
+
+/.quarto/
+**/*.quarto_ipynb
