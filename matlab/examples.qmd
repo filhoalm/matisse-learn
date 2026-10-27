@@ -10,7 +10,7 @@ Practice with real cancer surveillance data from the US Surveillance, Epidemiolo
 <nav class="examples-index" aria-label="Examples on this page">
 <div class="examples-group"><p class="examples-group-title">Data and Lexis diagrams</p><ul>
 <li><a href="#example-data">Example data</a><span>Load and prepare one of 16 SEER datasets.</span><span class="ex-mat"><a href="../downloads/MATISSE_2_The_Lexis_Diagram.mlx">Live script ↗</a></span></li>
-<li><a href="#visualizing-a-lexis-diagram">Visualizing a Lexis diagram</a><span>Draw a heat map and a 3-D surface of rates.</span><span class="ex-mat"><a href="https://www.youtube.com/watch?v=dzQgEBVj48o">Video, 0:43 ↗</a> · <a href="../downloads/MATISSE_2_The_Lexis_Diagram.mlx">Live script ↗</a></span></li>
+<li><a href="#visualizing-a-lexis-diagram">Visualizing a Lexis diagram</a><span>Draw a heat map and a 3-D surface of rates.</span><span class="ex-mat"><a href="https://www.youtube.com/watch?v=dzQgEBVj48o">MATLAB video, 0:43 ↗</a> · <a href="../downloads/MATISSE_2_The_Lexis_Diagram.mlx">Live script ↗</a></span></li>
 <li><a href="#comparing-several-lexis-diagrams-at-once">Comparing several Lexis diagrams</a><span>Compare groups side by side.</span><span class="ex-mat"><a href="../downloads/MATISSE_2_The_Lexis_Diagram.mlx">Live script ↗</a></span></li>
 </ul></div>
 <div class="examples-group"><p class="examples-group-title">Standard plots</p><ul>
@@ -55,7 +55,7 @@ disp(R)
 
 ### Visualizing a Lexis diagram
 
-**Video:** [Watch Visualizing a Lexis diagram on YouTube](https://www.youtube.com/watch?v=dzQgEBVj48o) (43 sec).
+**MATLAB toolbox video:** [Watch Visualizing a Lexis diagram on YouTube](https://www.youtube.com/watch?v=dzQgEBVj48o) (43 sec).
 
 Two plots help you explore the same data. A **heat map** uses color to show the rates; a **3-D surface** shows log rates. Run the Example data section first to create `R`. Then run this code: `pcolor(R)` draws the heat map, and `surf(R)` draws the surface.
 

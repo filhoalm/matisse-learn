@@ -77,6 +77,9 @@ div.callout-tip .callout-icon::before { background-color: var(--plum) !important
 .btn-course.plum { background: var(--plum); }
 .btn-course.plum:hover { background: var(--plum-2); }
 
+/* ---- the name in the navbar: the R in the pink of the YouTube banner ---- */
+.navbar-brand .navbar-title .brand-r, .navbar-title .brand-r { color: #e8a8dc; }
+
 /* ---- landing hero ---- */
 .hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 2.2rem; align-items: center; padding: 1.6rem 0 1.2rem; }
 .eyebrow { color: #52677c; font-size: .66rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .7rem; }
@@ -218,6 +221,12 @@ div.quiz .explain { display: none; }
 .course-video-caption strong { display: block; color: var(--navy); font-size: .98rem; }
 .course-video-caption > span { display: block; margin-top: .2rem; color: #617186; font-size: .76rem; }
 .course-video-card:hover { border-color: var(--plum); }
+.course-video-frame { position: relative; aspect-ratio: 16 / 9; background: #000; }
+.course-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.course-video-caption a { font-weight: 600; }
+.video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.1rem; margin: 1rem 0 1.6rem; align-items: start; }
+.video-grid .course-video-card { max-width: none; margin: 0; }
+.video-grid > p { margin: 0; }
 .course-video-card:hover .course-video-play { background: var(--plum); }
 .case.plain { background: #f8fafc; }
 .case.plain .txt { padding: 1.3rem 1.3rem 1.4rem; }

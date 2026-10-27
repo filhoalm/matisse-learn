@@ -30,8 +30,6 @@ source("../assets/setup.R")
 
 ## The Lexis diagram {#the-lexis-diagram}
 
-<a class="course-video-card" href="https://www.youtube.com/watch?v=dzQgEBVj48o" target="_blank" rel="noopener" aria-label="Watch Visualizing a Lexis diagram on YouTube, 43 seconds, opens in a new tab"><span class="course-video-preview"><img src="https://i.ytimg.com/vi/dzQgEBVj48o/hqdefault.jpg" alt="" loading="lazy"><span class="course-video-play" aria-hidden="true">▶</span><span class="course-video-duration">0:43</span></span><span class="course-video-caption"><strong>Visualizing a Lexis diagram</strong><span>Short video made with the MATLAB toolbox ↗</span></span></a>
-
 A **Lexis diagram** is a grid with calendar **period** on one axis and **age** on the other. Each cell holds two numbers for a surveilled population: the **events** (for example, new cases of a disease, or deaths) and the **person-years** at risk. Their ratio is the **rate**, usually quoted per 100,000 person-years.
 
 Because everyone ages one year per calendar year, a person moves diagonally through the grid. All people in the same diagonal were born in the same years, so the diagonals are **birth cohorts**. For a cell with midpoints *a* (age) and *p* (period):
@@ -127,6 +125,13 @@ c(age_groups_before = nrow(A5$Events), single_years_after = nrow(I1$Events),
 <div class="lesson-tag"><span class="lt lab">Hands-on lab</span><span class="lm">25 min</span></div>
 
 ## Bring your own data {#bring-your-own-data}
+
+<!--yt:owndata-->
+<div class="lesson-tag"><span class="lt video">Video</span><span class="lm">1 min</span></div>
+
+<a class="course-video-card" href="https://www.youtube.com/watch?v=6qpUHUpReXo" data-yt="6qpUHUpReXo" data-title="Use your own data in matisseR" target="_blank" rel="noopener" aria-label="Play Use your own data in matisseR, 1:15, on YouTube"><span class="course-video-preview"><img src="../images/videos/owndata.jpg" alt="" loading="lazy" width="640" height="360"><span class="course-video-play" aria-hidden="true">▶</span><span class="course-video-duration">1:15</span></span><span class="course-video-caption"><strong>Use your own data in matisseR</strong><span>From a web tool file or your own table to a rates object ↗</span></span></a>
+<!--/yt:owndata-->
+
 
 There are two common ways to get your data into a rates object.
 

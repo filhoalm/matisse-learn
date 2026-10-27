@@ -24,10 +24,11 @@ source("../assets/setup.R")
 <li><a href="#self-check">Self-check</a></li>
 </ul>
 
-<div class="lesson-tag"><span class="lt video">Video</span><span class="lm">2 min</span></div>
+<!--yt:welcome-->
+<div class="lesson-tag"><span class="lt video">Video</span><span class="lm">3 min</span></div>
 
-<a class="course-video-card" href="https://www.youtube.com/watch?v=CLSP755kp4I" target="_blank" rel="noopener" aria-label="Watch Welcome to MATISSE on YouTube, 2:08, opens in a new tab"><span class="course-video-preview"><img src="https://i.ytimg.com/vi/CLSP755kp4I/hqdefault.jpg" alt="" loading="lazy"><span class="course-video-play" aria-hidden="true">▶</span><span class="course-video-duration">2:08</span></span><span class="course-video-caption"><strong>Welcome to MATISSE</strong><span>Watch the MATISSE tour on YouTube ↗</span></span></a>
-
+<a class="course-video-card" href="https://www.youtube.com/watch?v=_crEkLp8MLg" data-yt="_crEkLp8MLg" data-title="Welcome to matisseR Learn" target="_blank" rel="noopener" aria-label="Play Welcome to matisseR Learn, 3:12, on YouTube"><span class="course-video-preview"><img src="../images/videos/welcome.jpg" alt="" loading="lazy" width="640" height="360"><span class="course-video-play" aria-hidden="true">▶</span><span class="course-video-duration">3:12</span></span><span class="course-video-caption"><strong>Welcome to matisseR Learn</strong><span>Watch the 3-minute tour of the course ↗</span></span></a>
+<!--/yt:welcome-->
 
 ## Welcome {#welcome}
 
@@ -49,6 +50,13 @@ You can work through the modules in order, or jump to the one you need. Your pro
 <div class="lesson-tag"><span class="lt read">Reading</span><span class="lm">10 min</span></div>
 
 ## Set up R and matisseR {#set-up-r-and-matisser}
+
+<!--yt:module0-->
+<div class="lesson-tag"><span class="lt video">Video</span><span class="lm">1 min</span></div>
+
+<a class="course-video-card" href="https://www.youtube.com/watch?v=CNYMl7LkbSc" data-yt="CNYMl7LkbSc" data-title="Install matisseR and run your first example" target="_blank" rel="noopener" aria-label="Play Install matisseR and run your first example, 1:08, on YouTube"><span class="course-video-preview"><img src="../images/videos/module0.jpg" alt="" loading="lazy" width="640" height="360"><span class="course-video-play" aria-hidden="true">▶</span><span class="course-video-duration">1:08</span></span><span class="course-video-caption"><strong>Install matisseR and run your first example</strong><span>Module 0 in one minute ↗</span></span></a>
+<!--/yt:module0-->
+
 
 You need **R 4.1 or later**. [RStudio](https://posit.co/download/rstudio-desktop/) is optional but convenient. Install the packages the course uses, then install `matisseR` from its GitHub repository:
 

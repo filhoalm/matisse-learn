@@ -91,89 +91,221 @@ background: #0B2E4F;
       }
 </style>
 <meta name="theme-color" content="#0B2E4F">
+
 <script>
+
 (function () {
+
   var KEY = "matisseLearn.done.v1";
+
   function load() { try { return JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { return []; } }
+
   function save(a) { try { localStorage.setItem(KEY, JSON.stringify(a)); } catch (e) {} }
+
   function ready(f) { if (document.readyState !== "loading") f(); else document.addEventListener("DOMContentLoaded", f); }
 
+
+
   ready(function () {
+
     // ---- self-check quizzes: <div class="quiz" data-answer="2"> question, <ol> options, <div class="explain"> ----
+
     var n = 0;
+
     document.querySelectorAll("div.quiz").forEach(function (q) {
+
       var ol = q.querySelector("ol");
+
       if (!ol) return;
+
       n += 1;
+
       var answer = parseInt(q.getAttribute("data-answer"), 10);
+
       var explain = q.querySelector(".explain");
+
       var box = document.createElement("div");
+
       box.className = "opts";
+
       box.setAttribute("role", "radiogroup");
+
       Array.prototype.forEach.call(ol.children, function (li, i) {
+
         var label = document.createElement("label");
+
         var input = document.createElement("input");
+
         input.type = "radio";
+
         input.name = "quiz" + n;
+
         input.value = String(i + 1);
+
         var span = document.createElement("span");
+
         span.innerHTML = li.innerHTML;
+
         label.appendChild(input);
+
         label.appendChild(span);
+
         box.appendChild(label);
+
       });
+
       var btn = document.createElement("button");
+
       btn.type = "button";
+
       btn.textContent = "Check answer";
+
       var fb = document.createElement("p");
+
       fb.className = "fb";
+
       fb.hidden = true;
+
       fb.setAttribute("aria-live", "polite");
+
       btn.addEventListener("click", function () {
+
         var picked = box.querySelector("input:checked");
+
         if (!picked) { fb.hidden = false; fb.className = "fb"; fb.textContent = "Choose an answer first."; return; }
+
         var ok = parseInt(picked.value, 10) === answer;
+
         box.querySelectorAll("label").forEach(function (l) { l.classList.remove("right", "wrong"); });
+
         picked.parentNode.classList.add(ok ? "right" : "wrong");
+
         fb.hidden = false;
+
         fb.className = "fb " + (ok ? "ok" : "no");
+
         fb.innerHTML = "<strong>" + (ok ? "Correct. " : "Not quite. ") + "</strong>" + (explain ? explain.innerHTML : "");
+
       });
+
       ol.replaceWith(box);
+
       q.appendChild(btn);
+
       q.appendChild(fb);
+
     });
+
+
 
     // ---- completion buttons on module pages ----
+
     document.querySelectorAll(".complete[data-module]").forEach(function (c) {
+
       var id = c.getAttribute("data-module");
+
       var b = c.querySelector("button");
+
       function paint() {
+
         var on = load().indexOf(id) >= 0;
+
         b.setAttribute("aria-pressed", on ? "true" : "false");
+
         b.textContent = on ? "Completed ✓" : "Mark module complete";
+
       }
+
       b.addEventListener("click", function () {
+
         var d = load(), i = d.indexOf(id);
+
         if (i >= 0) d.splice(i, 1); else d.push(id);
+
         save(d); paint();
+
       });
+
       paint();
+
     });
 
+
+
     // ---- progress on the course home page ----
+
     var done = load();
+
     var mods = document.querySelectorAll(".mod[data-module]");
+
     mods.forEach(function (m) { if (done.indexOf(m.getAttribute("data-module")) >= 0) m.classList.add("done"); });
+
     document.querySelectorAll(".progress-line").forEach(function (p) {
+
       var total = mods.length, k = document.querySelectorAll(".mod.done").length;
+
       var t = p.querySelector(".pt"), bar = p.querySelector(".bar i");
+
       if (t) t.textContent = k + " of " + total + " modules complete (saved in this browser)";
+
       if (bar && total) bar.style.width = Math.round(100 * k / total) + "%";
+
     });
+
   });
+
 })();
+
 </script>
+
+
+
+<script>
+
+// video cards: click plays the video in the page (youtube-nocookie, loaded only on click); without JavaScript the card is a normal link to YouTube
+
+document.addEventListener("click", function (e) {
+
+  var a = e.target.closest && e.target.closest("a.course-video-card[data-yt]");
+
+  if (!a || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+  e.preventDefault();
+
+  var id = a.getAttribute("data-yt"), title = a.getAttribute("data-title") || "Video";
+
+  var box = document.createElement("div"), frame = document.createElement("div"), f = document.createElement("iframe"), cap = document.createElement("span");
+
+  box.className = a.className + " playing";
+
+  frame.className = "course-video-frame";
+
+  f.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + "?autoplay=1&rel=0";
+
+  f.title = title;
+
+  f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+
+  f.setAttribute("allowfullscreen", "");
+
+  frame.appendChild(f);
+
+  cap.className = "course-video-caption";
+
+  cap.innerHTML = "<strong></strong><span><a target=\"_blank\" rel=\"noopener\">Open on YouTube \u2197</a></span>";
+
+  cap.querySelector("strong").textContent = title;
+
+  cap.querySelector("a").href = a.href;
+
+  box.appendChild(frame); box.appendChild(cap);
+
+  a.parentNode.replaceChild(box, a);
+
+});
+
+</script>
+
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -187,7 +319,7 @@ background: #0B2E4F;
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">matisseR Learn</span>
+    <span class="navbar-title">matisse<span class="brand-r">R</span> Learn</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -224,6 +356,7 @@ background: #0B2E4F;
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
     <a href="https://github.com/filhoalm/matisseR" title="matisseR on GitHub" class="quarto-navigation-tool px-1" aria-label="matisseR on GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://www.youtube.com/@matisseRLearn" title="matisseR Learn on YouTube" class="quarto-navigation-tool px-1" aria-label="matisseR Learn on YouTube"><i class="bi bi-youtube"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>

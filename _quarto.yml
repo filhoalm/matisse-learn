@@ -31,6 +31,7 @@ website:
     location: navbar
     type: overlay
   navbar:
+    title: "matisse<span class=\"brand-r\">R</span> Learn"
     background: "#0B2E4F"
     foreground: "#FFFFFF"
     collapse-below: lg
@@ -51,6 +52,9 @@ website:
       - icon: github
         href: https://github.com/filhoalm/matisseR
         text: matisseR on GitHub
+      - icon: youtube
+        href: https://www.youtube.com/@matisseRLearn
+        text: matisseR Learn on YouTube
   sidebar:
     - id: modules
       title: "Course content"

@@ -132,7 +132,21 @@ Read the figure like this:
 - **FCP** shows how rates at that same age differ between generations. A rising pattern means that each later cohort has higher rates at that age.
 - **Local drifts** show where in life the increase is happening. Here the annual increase is largest in the middle ages.
 
+<!--yt:drift-->
+<div class="lesson-tag"><span class="lt video">Video</span><span class="lm">1 min</span></div>
+
+<a class="course-video-card" href="https://www.youtube.com/watch?v=iQy6Y7yb0ZQ" data-yt="iQy6Y7yb0ZQ" data-title="Local drift vs net drift" target="_blank" rel="noopener" aria-label="Play Local drift vs net drift, 1:16, on YouTube"><span class="course-video-preview"><img src="../images/videos/drift.jpg" alt="" loading="lazy" width="640" height="360"><span class="course-video-play" aria-hidden="true">▶</span><span class="course-video-duration">1:16</span></span><span class="course-video-caption"><strong>Local drift vs net drift</strong><span>How to read the yearly trend by age ↗</span></span></a>
+<!--/yt:drift-->
+
+
 ### Choosing a reference age
+
+<!--yt:observed-->
+<div class="lesson-tag"><span class="lt video">Video</span><span class="lm">1 min</span></div>
+
+<a class="course-video-card" href="https://www.youtube.com/watch?v=xs3pfK9r_po" data-yt="xs3pfK9r_po" data-title="Observed cohorts only" target="_blank" rel="noopener" aria-label="Play Observed cohorts only, 0:47, on YouTube"><span class="course-video-preview"><img src="../images/videos/observed.jpg" alt="" loading="lazy" width="640" height="360"><span class="course-video-play" aria-hidden="true">▶</span><span class="course-video-duration">0:47</span></span><span class="course-video-caption"><strong>Observed cohorts only</strong><span>Why a cohort pattern stops where the data stop ↗</span></span></a>
+<!--/yt:observed-->
+
 
 The cohort pattern depends on the reference age you choose. `apc_fcp()` lets you set it, and it can use any age, interpolating between age groups:
 

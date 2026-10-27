@@ -21,7 +21,7 @@ It is for epidemiologists, surveillance and registry researchers, and biostatist
 - **Day 2: how to move forward.** Comparative methods, the SAGE method, a high-level look at the theory, and the directions the methods can take you.
 - **Optional follow-up.** A smaller drop-in session for anyone who wants to go deeper into the theory and methods.
 
-Time is set aside for questions at the end of each session. Recorded lectures will be posted on the [MATISSE YouTube channel](https://www.youtube.com/@filhoam).
+Time is set aside for questions at the end of each session. Recorded lectures will be posted on the [matisseR Learn YouTube channel](https://www.youtube.com/@matisseRLearn).
 
 ## Get ready now
 

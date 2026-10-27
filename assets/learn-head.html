@@ -82,3 +82,27 @@
   });
 })();
 </script>
+
+<script>
+// video cards: click plays the video in the page (youtube-nocookie, loaded only on click); without JavaScript the card is a normal link to YouTube
+document.addEventListener("click", function (e) {
+  var a = e.target.closest && e.target.closest("a.course-video-card[data-yt]");
+  if (!a || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  var id = a.getAttribute("data-yt"), title = a.getAttribute("data-title") || "Video";
+  var box = document.createElement("div"), frame = document.createElement("div"), f = document.createElement("iframe"), cap = document.createElement("span");
+  box.className = a.className + " playing";
+  frame.className = "course-video-frame";
+  f.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + "?autoplay=1&rel=0";
+  f.title = title;
+  f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+  f.setAttribute("allowfullscreen", "");
+  frame.appendChild(f);
+  cap.className = "course-video-caption";
+  cap.innerHTML = "<strong></strong><span><a target=\"_blank\" rel=\"noopener\">Open on YouTube \u2197</a></span>";
+  cap.querySelector("strong").textContent = title;
+  cap.querySelector("a").href = a.href;
+  box.appendChild(frame); box.appendChild(cap);
+  a.parentNode.replaceChild(box, a);
+});
+</script>

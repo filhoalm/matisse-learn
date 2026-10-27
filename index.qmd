@@ -11,14 +11,16 @@ page-layout: full
 <p class="eyebrow">COURSE · AGE-PERIOD-COHORT ANALYSIS IN R</p>
 <h1>Learn age-period-cohort analysis with matisseR</h1>
 <p class="lede">A hands-on course on matisseR, an R toolbox for disease surveillance. Fit the New APC model, compare populations, follow social generations, and read figures from two real research projects. All in R, step by step.</p>
-<p class="status">Course in development: Modules 0 to 6 are ready to read and run. More video lessons will follow.</p>
+<p class="status">Course in development: Modules 0 to 6 are ready to read and run, with short video lessons for the first modules. More will follow.</p>
 <div class="cta">
 <a class="btn-course" href="modules/m0-welcome.html">Start Module 0 <span aria-hidden="true">→</span></a>
 <a class="btn-course alt" href="#syllabus">See the syllabus</a>
 </div>
 <p style="font-size:.78rem;color:#667389;margin:0">For epidemiologists, surveillance and registry researchers, and biostatisticians. Free, self-paced.</p>
 </div>
-<a class="course-video-card" href="https://www.youtube.com/watch?v=CLSP755kp4I" target="_blank" rel="noopener" aria-label="Watch Welcome to MATISSE on YouTube, 2 minutes 8 seconds, opens in a new tab"><span class="course-video-preview"><img src="https://i.ytimg.com/vi/CLSP755kp4I/hqdefault.jpg" alt="" loading="lazy"><span class="course-video-play" aria-hidden="true">▶</span><span class="course-video-duration">2:08</span></span><span class="course-video-caption"><strong>Welcome to MATISSE</strong><span>Watch the MATISSE tour on YouTube ↗</span></span></a>
+<!--yt:hero-->
+<a class="course-video-card" href="https://www.youtube.com/watch?v=_crEkLp8MLg" data-yt="_crEkLp8MLg" data-title="Welcome to matisseR Learn" target="_blank" rel="noopener" aria-label="Play Welcome to matisseR Learn, 3:12, on YouTube"><span class="course-video-preview"><img src="images/videos/welcome.jpg" alt="" loading="lazy" width="640" height="360"><span class="course-video-play" aria-hidden="true">▶</span><span class="course-video-duration">3:12</span></span><span class="course-video-caption"><strong>Welcome to matisseR Learn</strong><span>Watch the 3-minute tour of the course ↗</span></span></a>
+<!--/yt:hero-->
 :::
 
 ::: {.facts}
@@ -52,9 +54,10 @@ Seven modules, each with readings, hands-on code, a case-study figure to read, a
 
 <div class="syllabus">
 
-<details class="mod" data-module="m0" open><summary><span class="num">0</span><span class="mt"><strong>Welcome and setup</strong><span>Install R and matisseR, and check that everything runs.</span></span><span class="mm">4 lessons · ~30 min</span><span class="tog" aria-hidden="true">+</span></summary><div class="body">
+<details class="mod" data-module="m0" open><summary><span class="num">0</span><span class="mt"><strong>Welcome and setup</strong><span>Install R and matisseR, and check that everything runs.</span></span><span class="mm">5 lessons · ~30 min</span><span class="tog" aria-hidden="true">+</span></summary><div class="body">
 <ul class="lessons">
-<li><span class="lt video">Video</span><span><a href="https://www.youtube.com/watch?v=CLSP755kp4I" target="_blank" rel="noopener">Welcome to MATISSE: course tour</a></span><span class="lm">2 min</span></li>
+<li><span class="lt video">Video</span><span><a href="https://www.youtube.com/watch?v=_crEkLp8MLg" target="_blank" rel="noopener">Welcome to matisseR Learn</a></span><span class="lm">3 min</span></li><!--yt-li:welcome-->
+<li><span class="lt video">Video</span><span><a href="https://www.youtube.com/watch?v=CNYMl7LkbSc" target="_blank" rel="noopener">Install matisseR and run your first example</a></span><span class="lm">1 min</span></li><!--yt-li:module0-->
 <li><span class="lt read">Reading</span><span>Set up R and matisseR</span><span class="lm">10 min</span></li>
 <li><span class="lt lab">Lab</span><span>Check your setup</span><span class="lm">10 min</span></li>
 <li><span class="lt quiz">Self-check</span><span>2 questions</span><span class="lm">3 min</span></li>
@@ -63,20 +66,22 @@ Seven modules, each with readings, hands-on code, a case-study figure to read, a
 
 <details class="mod" data-module="m1"><summary><span class="num">1</span><span class="mt"><strong>Lexis diagrams and rates objects</strong><span>Organize cases and person-years by age, period and cohort.</span></span><span class="mm">6 lessons · ~1.5 h</span><span class="tog" aria-hidden="true">+</span></summary><div class="body">
 <ul class="lessons">
-<li><span class="lt video">Video</span><span><a href="https://www.youtube.com/watch?v=dzQgEBVj48o" target="_blank" rel="noopener">Visualizing a Lexis diagram</a></span><span class="lm">1 min</span></li>
 <li><span class="lt read">Reading</span><span>The Lexis diagram</span><span class="lm">15 min</span></li>
 <li><span class="lt lab">Lab</span><span>Rates objects</span><span class="lm">20 min</span></li>
 <li><span class="lt lab">Lab</span><span>Prepare rates for modelling: chunk, fill, interpolate</span><span class="lm">25 min</span></li>
+<li><span class="lt video">Video</span><span><a href="https://www.youtube.com/watch?v=6qpUHUpReXo" target="_blank" rel="noopener">Use your own data in matisseR</a></span><span class="lm">1 min</span></li><!--yt-li:owndata-->
 <li><span class="lt lab">Lab</span><span>Bring your own data</span><span class="lm">25 min</span></li>
 <li><span class="lt quiz">Self-check</span><span>3 questions</span><span class="lm">5 min</span></li>
 </ul>
 <a class="go" href="modules/m1-lexis-rates.html">Open Module 1 →</a></div></details>
 
-<details class="mod" data-module="m2"><summary><span class="num">2</span><span class="mt"><strong>The New APC model</strong><span>Fit the model and read its estimable functions.</span></span><span class="mm">5 lessons · ~2 h</span><span class="tog" aria-hidden="true">+</span></summary><div class="body">
+<details class="mod" data-module="m2"><summary><span class="num">2</span><span class="mt"><strong>The New APC model</strong><span>Fit the model and read its estimable functions.</span></span><span class="mm">7 lessons · ~2 h</span><span class="tog" aria-hidden="true">+</span></summary><div class="body">
 <ul class="lessons">
 <li><span class="lt read">Reading</span><span>Why APC is hard: identification and net drift</span><span class="lm">15 min</span></li>
 <li><span class="lt lab">Lab</span><span>Fit the model</span><span class="lm">25 min</span></li>
-<li><span class="lt lab">Lab</span><span>Estimable functions: LAC, CAC, FTT, FCP, local drifts</span><span class="lm">40 min</span></li>
+<li><span class="lt lab">Lab</span><span>Estimable functions: LAC, CAC, FTT, FCP, local drifts</span>
+<li><span class="lt video">Video</span><span><a href="https://www.youtube.com/watch?v=iQy6Y7yb0ZQ" target="_blank" rel="noopener">Local drift vs net drift</a></span><span class="lm">1 min</span></li><!--yt-li:drift-->
+<li><span class="lt video">Video</span><span><a href="https://www.youtube.com/watch?v=xs3pfK9r_po" target="_blank" rel="noopener">Observed cohorts only</a></span><span class="lm">1 min</span></li><!--yt-li:observed--><span class="lm">40 min</span></li>
 <li><span class="lt case">Case study</span><span>Read a real APC figure</span><span class="lm">20 min</span></li>
 <li><span class="lt quiz">Self-check</span><span>3 questions</span><span class="lm">5 min</span></li>
 </ul>

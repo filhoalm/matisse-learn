@@ -35,7 +35,7 @@ The core classes shipped in the toolbox:
 
 ### System map
 
-**Video:** [Watch the system map guide on YouTube](https://www.youtube.com/watch?v=6frwitiOJ_Y) (22 sec).
+**MATLAB toolbox video:** [Watch the system map guide on YouTube](https://www.youtube.com/watch?v=6frwitiOJ_Y) (22 sec).
 
 Use the system map to find the classes and methods you need. Each class is a line, and its methods are the stops. The `rates` and `matrix` classes are hubs that connect parts of the toolbox. Add the toolbox to your MATLAB path, then run this command to open the map:
 

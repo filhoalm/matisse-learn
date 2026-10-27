@@ -72,89 +72,221 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 <meta name="theme-color" content="#0B2E4F">
+
 <script>
+
 (function () {
+
   var KEY = "matisseLearn.done.v1";
+
   function load() { try { return JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { return []; } }
+
   function save(a) { try { localStorage.setItem(KEY, JSON.stringify(a)); } catch (e) {} }
+
   function ready(f) { if (document.readyState !== "loading") f(); else document.addEventListener("DOMContentLoaded", f); }
 
+
+
   ready(function () {
+
     // ---- self-check quizzes: <div class="quiz" data-answer="2"> question, <ol> options, <div class="explain"> ----
+
     var n = 0;
+
     document.querySelectorAll("div.quiz").forEach(function (q) {
+
       var ol = q.querySelector("ol");
+
       if (!ol) return;
+
       n += 1;
+
       var answer = parseInt(q.getAttribute("data-answer"), 10);
+
       var explain = q.querySelector(".explain");
+
       var box = document.createElement("div");
+
       box.className = "opts";
+
       box.setAttribute("role", "radiogroup");
+
       Array.prototype.forEach.call(ol.children, function (li, i) {
+
         var label = document.createElement("label");
+
         var input = document.createElement("input");
+
         input.type = "radio";
+
         input.name = "quiz" + n;
+
         input.value = String(i + 1);
+
         var span = document.createElement("span");
+
         span.innerHTML = li.innerHTML;
+
         label.appendChild(input);
+
         label.appendChild(span);
+
         box.appendChild(label);
+
       });
+
       var btn = document.createElement("button");
+
       btn.type = "button";
+
       btn.textContent = "Check answer";
+
       var fb = document.createElement("p");
+
       fb.className = "fb";
+
       fb.hidden = true;
+
       fb.setAttribute("aria-live", "polite");
+
       btn.addEventListener("click", function () {
+
         var picked = box.querySelector("input:checked");
+
         if (!picked) { fb.hidden = false; fb.className = "fb"; fb.textContent = "Choose an answer first."; return; }
+
         var ok = parseInt(picked.value, 10) === answer;
+
         box.querySelectorAll("label").forEach(function (l) { l.classList.remove("right", "wrong"); });
+
         picked.parentNode.classList.add(ok ? "right" : "wrong");
+
         fb.hidden = false;
+
         fb.className = "fb " + (ok ? "ok" : "no");
+
         fb.innerHTML = "<strong>" + (ok ? "Correct. " : "Not quite. ") + "</strong>" + (explain ? explain.innerHTML : "");
+
       });
+
       ol.replaceWith(box);
+
       q.appendChild(btn);
+
       q.appendChild(fb);
+
     });
+
+
 
     // ---- completion buttons on module pages ----
+
     document.querySelectorAll(".complete[data-module]").forEach(function (c) {
+
       var id = c.getAttribute("data-module");
+
       var b = c.querySelector("button");
+
       function paint() {
+
         var on = load().indexOf(id) >= 0;
+
         b.setAttribute("aria-pressed", on ? "true" : "false");
+
         b.textContent = on ? "Completed ✓" : "Mark module complete";
+
       }
+
       b.addEventListener("click", function () {
+
         var d = load(), i = d.indexOf(id);
+
         if (i >= 0) d.splice(i, 1); else d.push(id);
+
         save(d); paint();
+
       });
+
       paint();
+
     });
 
+
+
     // ---- progress on the course home page ----
+
     var done = load();
+
     var mods = document.querySelectorAll(".mod[data-module]");
+
     mods.forEach(function (m) { if (done.indexOf(m.getAttribute("data-module")) >= 0) m.classList.add("done"); });
+
     document.querySelectorAll(".progress-line").forEach(function (p) {
+
       var total = mods.length, k = document.querySelectorAll(".mod.done").length;
+
       var t = p.querySelector(".pt"), bar = p.querySelector(".bar i");
+
       if (t) t.textContent = k + " of " + total + " modules complete (saved in this browser)";
+
       if (bar && total) bar.style.width = Math.round(100 * k / total) + "%";
+
     });
+
   });
+
 })();
+
 </script>
+
+
+
+<script>
+
+// video cards: click plays the video in the page (youtube-nocookie, loaded only on click); without JavaScript the card is a normal link to YouTube
+
+document.addEventListener("click", function (e) {
+
+  var a = e.target.closest && e.target.closest("a.course-video-card[data-yt]");
+
+  if (!a || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+  e.preventDefault();
+
+  var id = a.getAttribute("data-yt"), title = a.getAttribute("data-title") || "Video";
+
+  var box = document.createElement("div"), frame = document.createElement("div"), f = document.createElement("iframe"), cap = document.createElement("span");
+
+  box.className = a.className + " playing";
+
+  frame.className = "course-video-frame";
+
+  f.src = "https://www.youtube-nocookie.com/embed/" + encodeURIComponent(id) + "?autoplay=1&rel=0";
+
+  f.title = title;
+
+  f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+
+  f.setAttribute("allowfullscreen", "");
+
+  frame.appendChild(f);
+
+  cap.className = "course-video-caption";
+
+  cap.innerHTML = "<strong></strong><span><a target=\"_blank\" rel=\"noopener\">Open on YouTube \u2197</a></span>";
+
+  cap.querySelector("strong").textContent = title;
+
+  cap.querySelector("a").href = a.href;
+
+  box.appendChild(frame); box.appendChild(cap);
+
+  a.parentNode.replaceChild(box, a);
+
+});
+
+</script>
+
 
 
 <link rel="stylesheet" href="styles.css">
@@ -168,7 +300,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">matisseR Learn</span>
+    <span class="navbar-title">matisse<span class="brand-r">R</span> Learn</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -205,6 +337,7 @@ ul.task-list li input[type="checkbox"] {
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
     <a href="https://github.com/filhoalm/matisseR" title="matisseR on GitHub" class="quarto-navigation-tool px-1" aria-label="matisseR on GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://www.youtube.com/@matisseRLearn" title="matisseR Learn on YouTube" class="quarto-navigation-tool px-1" aria-label="matisseR Learn on YouTube"><i class="bi bi-youtube"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -235,7 +368,7 @@ Learn age-period-cohort analysis with matisseR
 A hands-on course on matisseR, an R toolbox for disease surveillance. Fit the New APC model, compare populations, follow social generations, and read figures from two real research projects. All in R, step by step.
 </p>
 <p class="status">
-Course in development: Modules 0 to 6 are ready to read and run. More video lessons will follow.
+Course in development: Modules 0 to 6 are ready to read and run, with short video lessons for the first modules. More will follow.
 </p>
 <div class="cta">
 <p><a class="btn-course" href="modules/m0-welcome.html">Start Module 0 <span aria-hidden="true">→</span></a> <a class="btn-course alt" href="#syllabus">See the syllabus</a></p>
@@ -244,7 +377,8 @@ Course in development: Modules 0 to 6 are ready to read and run. More video less
 For epidemiologists, surveillance and registry researchers, and biostatisticians. Free, self-paced.
 </p>
 </div>
-<p><a class="course-video-card" href="https://www.youtube.com/watch?v=CLSP755kp4I" target="_blank" rel="noopener" aria-label="Watch Welcome to MATISSE on YouTube, 2 minutes 8 seconds, opens in a new tab"><span class="course-video-preview"><img src="https://i.ytimg.com/vi/CLSP755kp4I/hqdefault.jpg" alt="" loading="lazy"><span class="course-video-play" aria-hidden="true">▶</span><span class="course-video-duration">2:08</span></span><span class="course-video-caption"><strong>Welcome to MATISSE</strong><span>Watch the MATISSE tour on YouTube ↗</span></span></a></p>
+<!--yt:hero-->
+<p><a class="course-video-card" href="https://www.youtube.com/watch?v=_crEkLp8MLg" data-yt="_crEkLp8MLg" data-title="Welcome to matisseR Learn" target="_blank" rel="noopener" aria-label="Play Welcome to matisseR Learn, 3:12, on YouTube"><span class="course-video-preview"><img src="images/videos/welcome.jpg" alt="" loading="lazy" width="640" height="360"><span class="course-video-play" aria-hidden="true">▶</span><span class="course-video-duration">3:12</span></span><span class="course-video-caption"><strong>Welcome to matisseR Learn</strong><span>Watch the 3-minute tour of the course ↗</span></span></a> <!--/yt:hero--></p>
 </div>
 <div class="facts">
 <div>
@@ -318,13 +452,18 @@ Reproducible R workflows
 <div class="syllabus">
 <details class="mod" data-module="m0" open="">
 <summary>
-<span class="num">0</span><span class="mt"><strong>Welcome and setup</strong><span>Install R and matisseR, and check that everything runs.</span></span><span class="mm">4 lessons · ~30 min</span><span class="tog" aria-hidden="true">+</span>
+<span class="num">0</span><span class="mt"><strong>Welcome and setup</strong><span>Install R and matisseR, and check that everything runs.</span></span><span class="mm">5 lessons · ~30 min</span><span class="tog" aria-hidden="true">+</span>
 </summary>
 <div class="body">
 <ul class="lessons">
 <li>
-<span class="lt video">Video</span><span><a href="https://www.youtube.com/watch?v=CLSP755kp4I" target="_blank" rel="noopener">Welcome to MATISSE: course tour</a></span><span class="lm">2 min</span>
+<span class="lt video">Video</span><span><a href="https://www.youtube.com/watch?v=_crEkLp8MLg" target="_blank" rel="noopener">Welcome to matisseR Learn</a></span><span class="lm">3 min</span>
 </li>
+<!--yt-li:welcome-->
+<li>
+<span class="lt video">Video</span><span><a href="https://www.youtube.com/watch?v=CNYMl7LkbSc" target="_blank" rel="noopener">Install matisseR and run your first example</a></span><span class="lm">1 min</span>
+</li>
+<!--yt-li:module0-->
 <li>
 <span class="lt read">Reading</span><span>Set up R and matisseR</span><span class="lm">10 min</span>
 </li>
@@ -345,9 +484,6 @@ Reproducible R workflows
 <div class="body">
 <ul class="lessons">
 <li>
-<span class="lt video">Video</span><span><a href="https://www.youtube.com/watch?v=dzQgEBVj48o" target="_blank" rel="noopener">Visualizing a Lexis diagram</a></span><span class="lm">1 min</span>
-</li>
-<li>
 <span class="lt read">Reading</span><span>The Lexis diagram</span><span class="lm">15 min</span>
 </li>
 <li>
@@ -356,6 +492,10 @@ Reproducible R workflows
 <li>
 <span class="lt lab">Lab</span><span>Prepare rates for modelling: chunk, fill, interpolate</span><span class="lm">25 min</span>
 </li>
+<li>
+<span class="lt video">Video</span><span><a href="https://www.youtube.com/watch?v=6qpUHUpReXo" target="_blank" rel="noopener">Use your own data in matisseR</a></span><span class="lm">1 min</span>
+</li>
+<!--yt-li:owndata-->
 <li>
 <span class="lt lab">Lab</span><span>Bring your own data</span><span class="lm">25 min</span>
 </li>
@@ -368,7 +508,7 @@ Reproducible R workflows
 </details>
 <details class="mod" data-module="m2">
 <summary>
-<span class="num">2</span><span class="mt"><strong>The New APC model</strong><span>Fit the model and read its estimable functions.</span></span><span class="mm">5 lessons · ~2 h</span><span class="tog" aria-hidden="true">+</span>
+<span class="num">2</span><span class="mt"><strong>The New APC model</strong><span>Fit the model and read its estimable functions.</span></span><span class="mm">7 lessons · ~2 h</span><span class="tog" aria-hidden="true">+</span>
 </summary>
 <div class="body">
 <ul class="lessons">
@@ -379,8 +519,17 @@ Reproducible R workflows
 <span class="lt lab">Lab</span><span>Fit the model</span><span class="lm">25 min</span>
 </li>
 <li>
-<span class="lt lab">Lab</span><span>Estimable functions: LAC, CAC, FTT, FCP, local drifts</span><span class="lm">40 min</span>
+<span class="lt lab">Lab</span><span>Estimable functions: LAC, CAC, FTT, FCP, local drifts</span>
+</li><li>
+<span class="lt video">Video</span><span><a href="https://www.youtube.com/watch?v=iQy6Y7yb0ZQ" target="_blank" rel="noopener">Local drift vs net drift</a></span><span class="lm">1 min</span>
 </li>
+<!--yt-li:drift-->
+<li>
+<span class="lt video">Video</span><span><a href="https://www.youtube.com/watch?v=xs3pfK9r_po" target="_blank" rel="noopener">Observed cohorts only</a></span><span class="lm">1 min</span>
+</li>
+<!--yt-li:observed-->
+<span class="lm">40 min</span>
+
 <li>
 <span class="lt case">Case study</span><span>Read a real APC figure</span><span class="lm">20 min</span>
 </li>
